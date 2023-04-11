@@ -1,0 +1,1875 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Jost", sans-serif;
+}
+
+body {
+  margin: 0;
+  margin-top: 90px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  height: 90px;
+  background-color: #323437;
+  z-index: 999;
+}
+header .container {
+  align-items: center;
+  justify-content: space-between;
+}
+header div p {
+  margin: 0 0 5px 0;
+  font-size: 15px;
+  color: #fff;
+}
+header div .logo {
+  margin-top: 5px;
+}
+header div .logo img {
+  position: relative;
+  top: 4px;
+  height: 40px;
+}
+header div .logo a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  position: relative;
+  left: 5px;
+  bottom: 7px;
+  color: #fff;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+nav li {
+  margin: 0 30px;
+}
+nav li:last-of-type {
+  margin-right: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 1024px) {
+  .top {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .hamburger.active span:first-child {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:last-child {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+  nav {
+    padding-left: 20px;
+    display: block;
+    position: fixed;
+    top: 90px;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: #62BEC1;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  nav ul {
+    flex-direction: column;
+  }
+  nav li {
+    border-bottom: 2px solid #EAE151;
+    margin: 10px;
+    text-align: left;
+    width: 136px;
+  }
+  nav a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    font-size: 16px;
+  }
+}
+.container-slider .slick-dots {
+  bottom: 200px;
+  left: -35%;
+}
+@media (max-width: 1200px) {
+  .container-slider .slick-dots {
+    left: 0;
+    bottom: 50px;
+  }
+}
+
+body {
+  background-color: #EEEFA8;
+  overflow-x: hidden;
+}
+body .container {
+  display: flex;
+  margin: 0 auto;
+}
+@media (min-width: 1400px) {
+  body .container {
+    width: 1360px;
+  }
+}
+@media (max-width: 1399px) {
+  body .container {
+    width: 1170px;
+  }
+}
+@media (max-width: 1199px) {
+  body .container {
+    width: 940px;
+  }
+}
+@media (max-width: 991px) {
+  body .container {
+    width: 740px;
+  }
+}
+@media (max-width: 767px) {
+  body .container {
+    width: 90%;
+  }
+}
+body .slide_1 {
+  padding-top: 20px;
+}
+body .slide_1 .container {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto 50px auto;
+  background-image: url("../images/main-blob.png");
+  background-size: 70% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 600px;
+}
+@media (min-width: 1400px) {
+  body .slide_1 .container {
+    width: 1360px;
+  }
+}
+@media (max-width: 1399px) {
+  body .slide_1 .container {
+    width: 1170px;
+  }
+}
+@media (max-width: 1199px) {
+  body .slide_1 .container {
+    width: 940px;
+  }
+}
+@media (max-width: 991px) {
+  body .slide_1 .container {
+    width: 740px;
+    margin-top: 10px;
+    background-size: 100% 60%;
+    height: auto;
+    background-position: center top;
+    flex-direction: column;
+  }
+}
+@media (max-width: 767px) {
+  body .slide_1 .container {
+    width: 90%;
+    background-size: 100% 40%;
+  }
+}
+@media (max-width: 560px) {
+  body .slide_1 .container {
+    background-size: 100% 40%;
+    margin-top: 30px;
+  }
+}
+@media (max-width: 350px) {
+  body .slide_1 .container {
+    background-size: 100% 30%;
+  }
+}
+body .slide_1 .info {
+  margin: 100px 2% 0px 250px;
+}
+body .slide_1 .info div {
+  margin: 0%;
+}
+body .slide_1 .info div img {
+  height: 300px;
+  width: 450px;
+}
+@media (max-width: 991px) {
+  body .slide_1 .info div img {
+    height: 250px;
+  }
+}
+@media (max-width: 767px) {
+  body .slide_1 .info div img {
+    height: 200px;
+    width: 300px;
+  }
+}
+@media (max-width: 560px) {
+  body .slide_1 .info div img {
+    width: 170px;
+    height: 120px;
+    margin-left: 50px;
+  }
+}
+body .slide_1 .info h1 {
+  color: #323437;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 50px;
+  margin: 0px 0px 0px 30px;
+}
+@media (max-width: 767px) {
+  body .slide_1 .info h1 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 560px) {
+  body .slide_1 .info h1 {
+    margin-left: 50px;
+    font-size: 25px;
+  }
+}
+body .slide_1 .info p {
+  font-style: normal;
+  font-size: 25px;
+  margin: 0px 0px 0px 30px;
+}
+@media (max-width: 767px) {
+  body .slide_1 .info p {
+    font-size: 20px;
+  }
+}
+@media (max-width: 560px) {
+  body .slide_1 .info p {
+    margin-left: 50px;
+    font-size: 15px;
+  }
+}
+@media (max-width: 1199px) {
+  body .slide_1 .info {
+    margin-left: 150px;
+  }
+}
+@media (max-width: 991px) {
+  body .slide_1 .info {
+    margin-left: 170px;
+  }
+}
+@media (max-width: 767px) {
+  body .slide_1 .info {
+    margin: 50px auto 10px auto;
+  }
+}
+body .slide_1 .info-list {
+  text-align: center;
+  background-color: rgba(250, 253, 246, 0.85);
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 50px 5% 0px 20px;
+  width: 30%;
+  border-radius: 40px;
+  padding: 20px 30px 20px 30px;
+}
+body .slide_1 .info-list h3 {
+  font-size: 25px;
+}
+body .slide_1 .info-list li {
+  text-align: left;
+  color: #323437;
+}
+body .slide_1 .info-list li p {
+  font-size: 1rem;
+}
+@media (max-width: 1200px) {
+  body .slide_1 .info-list {
+    margin-left: 0;
+  }
+}
+@media (max-width: 991px) {
+  body .slide_1 .info-list {
+    margin: 50px auto;
+    width: 100%;
+  }
+  body .slide_1 .info-list .info-list-content {
+    display: flex;
+  }
+  body .slide_1 .info-list .info-list-content div {
+    width: 50%;
+    margin-right: 20px;
+  }
+  body .slide_1 .info-list .info-list-content div li p {
+    font-size: 20px;
+  }
+  body .slide_1 .info-list #tab-li-item {
+    display: list-item;
+  }
+  body .slide_1 .info-list li {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 560px) {
+  body .slide_1 .info-list .info-list-content {
+    margin-top: 20px;
+    display: block;
+  }
+  body .slide_1 .info-list .info-list-content div {
+    width: 100%;
+  }
+  body .slide_1 .info-list .info-list-content div li {
+    font-size: 16px;
+  }
+  body .slide_1 .info-list #tab-li-item {
+    display: none;
+  }
+}
+
+.slide_2 {
+  background-color: #eae151;
+}
+.slide_2 .container-slider {
+  display: block;
+  background-color: #EAE151;
+}
+.slide_2 .container-slider .slider {
+  display: flex;
+}
+@media (max-width: 1200px) {
+  .slide_2 .container-slider .slider {
+    flex-direction: column-reverse;
+  }
+}
+.slide_2 .container-slider .text {
+  text-align: center;
+  width: 30%;
+}
+.slide_2 .container-slider .text div {
+  padding-top: 100px;
+  justify-content: center;
+  display: flex;
+}
+.slide_2 .container-slider .text div h2 {
+  font-size: 35px;
+  position: relative;
+  bottom: 20px;
+}
+.slide_2 .container-slider .text p {
+  width: 300px;
+  margin: 80px auto;
+  font-size: 25px;
+}
+.slide_2 .container-slider .photo {
+  width: 70%;
+  height: 780px;
+}
+.slide_2 .container-slider .photo img {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 1200px) {
+  .slide_2 .container-slider {
+    flex-direction: column-reverse;
+  }
+  .slide_2 .container-slider .photo {
+    width: 100%;
+    height: 780px;
+  }
+  .slide_2 .container-slider .photo img {
+    width: 100%;
+    height: 100%;
+  }
+  .slide_2 .container-slider .text {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .slide_2 .container-slider .text div {
+    padding-top: 50px;
+    justify-content: left;
+    padding-left: 20px;
+    display: flex;
+  }
+  .slide_2 .container-slider .text p {
+    padding: 0px;
+    width: 300px;
+    font-size: 25px;
+  }
+}
+@media (max-width: 1200px) and (max-width: 1200px) {
+  .slide_2 .container-slider .text p {
+    margin-top: 20px;
+  }
+}
+@media (max-width: 560px) {
+  .slide_2 .container-slider .photo {
+    height: 400px;
+  }
+  .slide_2 .container-slider .text div {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .slide_2 .container-slider .text p {
+    padding: 0;
+    margin: 0 auto 200px auto;
+  }
+}
+@media (max-width: 767px) {
+  .slide_2 .container-slider .text {
+    height: 40%;
+  }
+  .slide_2 .container-slider .photo {
+    height: 60%;
+  }
+}
+
+.slide_3 .container {
+  flex-direction: column;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.slide_3 .container .text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 70px;
+}
+@media (max-width: 560px) {
+  .slide_3 .container .text {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+.slide_3 .container h2 {
+  font-size: 35px;
+  margin: 0;
+}
+.slide_3 .container .cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.slide_3 .container .cards .card {
+  display: flex;
+  background-color: rgba(250, 253, 246, 0.85);
+  border-radius: 10px;
+  border: 2px solid #863558;
+  margin: 20px 50px;
+  width: 450px;
+}
+.slide_3 .container .cards .card img {
+  height: 200px;
+  width: 200px;
+}
+.slide_3 .container .cards .card :nth-child(1),
+.slide_3 .container .cards .card :nth-child(2) {
+  order: 1;
+}
+.slide_3 .container .cards .card :nth-child(3),
+.slide_3 .container .cards .card :nth-child(4) {
+  order: 2;
+}
+.slide_3 .container .cards .card p {
+  font-size: 30px;
+  width: 200px;
+  padding-left: 10px;
+}
+.slide_3 .container .cards .card #it-course {
+  width: 150px;
+  padding-top: 20px;
+}
+@media (max-width: 1199px) {
+  .slide_3 .container .cards .card {
+    flex-direction: column;
+    width: 300px;
+    align-items: center;
+    text-align: center;
+  }
+}
+@media (max-width: 991px) {
+  .slide_3 .container .cards .card {
+    width: 250px;
+  }
+  .slide_3 .container .cards .card p {
+    font-size: 25px;
+  }
+}
+@media (max-width: 767px) {
+  .slide_3 .container .cards .card {
+    width: 200px;
+  }
+  .slide_3 .container .cards .card p {
+    font-size: 20px;
+  }
+}
+@media (max-width: 676px) {
+  .slide_3 .container .cards .card {
+    width: 380px;
+    flex-direction: row;
+  }
+}
+@media (max-width: 500px) {
+  .slide_3 .container .cards .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 10px 0px;
+  }
+  .slide_3 .container .cards .card p {
+    margin-top: 0px;
+    width: 300px;
+  }
+  .slide_3 .container .cards .card #it-course {
+    width: 300px;
+  }
+}
+
+.slide_4 {
+  background-image: url("../images/background-business.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.slide_4 .container {
+  padding-top: 50px;
+}
+.slide_4 .container .text {
+  display: flex;
+  margin-bottom: 20px;
+}
+.slide_4 .container .text h2 {
+  font-size: 35px;
+  margin: 10px 0px 10px 5px;
+  color: #fff;
+}
+.slide_4 .container .response {
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+}
+@media (max-width: 1300px) {
+  .slide_4 .container .response {
+    width: -moz-fit-content;
+    width: fit-content;
+    flex-direction: column;
+  }
+  .slide_4 .container .response div {
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto;
+  }
+}
+@media (max-width: 1300px) and (max-width: 767px) {
+  .slide_4 .container .response div {
+    margin: 10px auto;
+  }
+}
+@media (max-width: 1300px) and (max-width: 560px) {
+  .slide_4 .container .response .text {
+    flex-direction: column;
+  }
+}
+.slide_4 .container .response-left {
+  color: #fff;
+  background-image: url("../images/blob_1.png");
+  height: 600px;
+  width: 680px;
+  background-repeat: no-repeat;
+  padding: 30px 180px 0px 80px;
+}
+.slide_4 .container .response-left h3 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
+@media (max-width: 560px) {
+  .slide_4 .container .response-left h3 {
+    margin: 30px 20px;
+    font-size: 25px;
+  }
+}
+@media (max-width: 1300px) {
+  .slide_4 .container .response-left {
+    height: 700px;
+    width: auto;
+    background-size: 700px;
+    padding: 30px 100px 0px 120px;
+  }
+}
+@media (max-width: 767px) {
+  .slide_4 .container .response-left {
+    background-image: none;
+    background-color: #62BEC1;
+    width: 100%;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 30px;
+    margin-bottom: 50px;
+    border-radius: 90px;
+  }
+}
+@media (max-width: 560px) {
+  .slide_4 .container .response-left {
+    padding: 10px;
+  }
+}
+.slide_4 .container .response-1, .slide_4 .container .response-2, .slide_4 .container .response-3,
+.slide_4 .container .response-right1, .slide_4 .container .response-right2, .slide_4 .container .response-right3 {
+  display: flex;
+}
+.slide_4 .container .response-1 svg, .slide_4 .container .response-3 svg {
+  margin-top: 30px;
+}
+.slide_4 .container .response-2 svg {
+  margin-top: 30px;
+}
+.slide_4 .container .response-1, .slide_4 .container .response-2, .slide_4 .container .response-3 {
+  width: 500px;
+}
+.slide_4 .container .response-1 p, .slide_4 .container .response-2 p, .slide_4 .container .response-3 p {
+  margin-top: 5px;
+  margin-left: 60px;
+  margin-right: 110px;
+  line-height: 1.2rem;
+}
+.slide_4 .container .response-1 h5, .slide_4 .container .response-2 h5, .slide_4 .container .response-3 h5 {
+  margin: 10px 0px 0px 60px;
+  font-size: 1rem;
+}
+@media (max-width: 1300px) {
+  .slide_4 .container .response-1 p, .slide_4 .container .response-2 p, .slide_4 .container .response-3 p {
+    font-size: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .slide_4 .container .response-1, .slide_4 .container .response-2, .slide_4 .container .response-3 {
+    width: 100%;
+  }
+  .slide_4 .container .response-1 p, .slide_4 .container .response-1 h5, .slide_4 .container .response-2 p, .slide_4 .container .response-2 h5, .slide_4 .container .response-3 p, .slide_4 .container .response-3 h5 {
+    margin: 10px;
+    font-size: 25px;
+  }
+  .slide_4 .container .response-1 p, .slide_4 .container .response-2 p, .slide_4 .container .response-3 p {
+    font-size: 25px;
+    line-height: 25px;
+  }
+}
+@media (max-width: 767px) {
+  .slide_4 .container .response-1 p, .slide_4 .container .response-1 h5, .slide_4 .container .response-2 p, .slide_4 .container .response-2 h5, .slide_4 .container .response-3 p, .slide_4 .container .response-3 h5 {
+    font-size: 20px;
+  }
+}
+.slide_4 .container .response-right {
+  width: 50%;
+}
+@media (max-width: 1300px) {
+  .slide_4 .container .response-right {
+    display: flex;
+  }
+}
+.slide_4 .container .response-right .column {
+  display: flex;
+}
+@media (max-width: 1300px) {
+  .slide_4 .container .response-right .column {
+    display: none;
+  }
+}
+.slide_4 .container .response-right1 {
+  background-image: url("../images/lemon_blob_1.png");
+  background-repeat: no-repeat;
+  background-size: 300px 170px;
+  width: 300px;
+  height: 200px;
+}
+.slide_4 .container .response-right1 .response-right1-1 svg {
+  box-sizing: unset;
+}
+.slide_4 .container .response-right1 .response-right1-2 {
+  flex-direction: column;
+}
+.slide_4 .container .response-right2 {
+  margin: 30px 0px 0px 100px;
+  background-image: url("../images/lemon_blob_2.png");
+  background-repeat: no-repeat;
+  background-size: 400px 170px;
+  width: 400px;
+  height: 200px;
+}
+.slide_4 .container .response-right2 .response-right2-1 {
+  padding: 70px 10px 0px 70px;
+}
+.slide_4 .container .response-right2 .response-right2-2 {
+  flex-direction: column;
+}
+.slide_4 .container .response-right2 .response-right2-2 h5 {
+  padding: 30px 0px 10px 0px;
+  margin: 0;
+  font-size: 1.2rem;
+}
+.slide_4 .container .response-right2 .response-right2-2 p {
+  width: 250px;
+  padding: 0px 30px 0px 0px;
+  margin: 0;
+  line-height: 20px;
+}
+.slide_4 .container .response-right3 {
+  margin-top: 50px;
+  background-image: url("../images/lemon_blob_3.png");
+  background-repeat: no-repeat;
+  background-size: 400px 170px;
+  width: 400px;
+  height: 200px;
+}
+.slide_4 .container .response-right3 .response-right3-1 {
+  padding: 70px 10px 0px 30px;
+}
+.slide_4 .container .response-right3 .response-right3-2 {
+  flex-direction: column;
+}
+.slide_4 .container .response-right3 .response-right3-2 h5 {
+  padding: 30px 0px 10px 0px;
+  margin: 0;
+  font-size: 1.2rem;
+}
+.slide_4 .container .response-right3 .response-right3-2 p {
+  padding: 0px 30px 0px 0px;
+  margin: 0;
+  line-height: 20px;
+}
+.slide_4 .container .response-right1-1 svg {
+  padding: 70px 10px 0px 30px;
+  height: 50px;
+}
+.slide_4 .container .response-right1-2 p {
+  padding: 0px 30px 0px 0px;
+  margin: 0;
+  line-height: 20px;
+}
+.slide_4 .container .response-right1-2 h5 {
+  padding: 30px 0px 10px 0px;
+  margin: 0;
+  font-size: 1.2rem;
+}
+.slide_4 .container .response-right2-2 p, .slide_4 .container .response-right3-2 p {
+  padding: 0px 400px 0px 0px;
+}
+@media (max-width: 1399px) {
+  .slide_4 .container {
+    width: auto;
+  }
+}
+
+.slide_5 .container {
+  margin: 50px auto;
+  flex-direction: column;
+}
+.slide_5 .container .change-future {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(250, 253, 246, 0.85);
+  border-radius: 30px;
+  padding: 30px;
+}
+.slide_5 .container .change-future .text {
+  font-size: 2.5rem;
+  width: 400px;
+}
+.slide_5 .container .change-future .text button {
+  margin-left: 30px;
+}
+.slide_5 .container .change-future .text p {
+  margin-top: 80px;
+  margin-left: 30px;
+  margin-bottom: 50px;
+}
+@media (max-width: 1400px) {
+  .slide_5 .container .change-future .text p {
+    margin-top: 50px;
+  }
+}
+@media (max-width: 1100px) {
+  .slide_5 .container .change-future .text {
+    padding-left: 10px;
+    width: 600px;
+  }
+  .slide_5 .container .change-future .text p, .slide_5 .container .change-future .text button {
+    margin-left: 0;
+  }
+}
+@media (max-width: 400px) {
+  .slide_5 .container .change-future .text p {
+    margin: 0;
+  }
+}
+@media (max-width: 670px) {
+  .slide_5 .container .change-future .text {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+@media (max-width: 560px) {
+  .slide_5 .container .change-future .text {
+    width: 300px;
+  }
+  .slide_5 .container .change-future .text p {
+    font-size: 30px;
+  }
+}
+@media (max-width: 350px) {
+  .slide_5 .container .change-future .text {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .slide_5 .container .change-future .text p {
+    font-size: 20px;
+  }
+}
+.slide_5 .container .change-future .image {
+  width: 66.66%;
+}
+.slide_5 .container .change-future .image img {
+  width: 100%;
+  height: auto;
+  border-radius: 30px;
+}
+@media (max-width: 1200px) {
+  .slide_5 .container .change-future .image img {
+    height: 100%;
+  }
+}
+@media (max-width: 1101px) {
+  .slide_5 .container .change-future .image img {
+    height: 400px;
+  }
+}
+@media (max-width: 560px) {
+  .slide_5 .container .change-future .image img {
+    height: 250px;
+  }
+}
+@media (max-width: 1101px) {
+  .slide_5 .container .change-future .image {
+    width: 100%;
+  }
+}
+@media (max-width: 1100px) {
+  .slide_5 .container .change-future {
+    flex-direction: column-reverse;
+  }
+}
+.slide_5 .container .help {
+  margin-top: 50px;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+@media (max-width: 767px) {
+  .slide_5 .container .help {
+    flex-direction: column-reverse;
+  }
+  .slide_5 .container .help .ask-question, .slide_5 .container .help .read-question {
+    margin: 10px auto;
+  }
+}
+.slide_5 .container .ask-question .text {
+  width: 350px;
+  display: flex;
+  padding: 0px 20px 20px 0px;
+}
+@media (max-width: 400px) {
+  .slide_5 .container .ask-question .text {
+    width: auto;
+  }
+}
+.slide_5 .container .ask-question p {
+  margin: 0px;
+}
+.slide_5 .container .ask-question svg {
+  height: 40px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+.slide_5 .container .ask-question button {
+  margin-left: 15px;
+}
+.slide_5 .container .read-question .text {
+  display: flex;
+}
+.slide_5 .container .read-question .text svg {
+  height: 40px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+.slide_5 .container .read-question .text p {
+  margin: 0px;
+}
+.slide_5 .container .read-question .text #lower-p {
+  margin-bottom: 20px;
+}
+@media (max-width: 400px) {
+  .slide_5 .container .read-question button {
+    margin-left: 15px;
+  }
+}
+
+footer {
+  display: block;
+  background-color: #323437;
+  height: -moz-max-content;
+  height: max-content;
+  text-align: center;
+}
+footer .container {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+footer p {
+  padding: 20px;
+  color: #FAFDF6;
+  font-size: 0.8rem;
+  margin: 0 auto;
+}
+footer .footer-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 30px 0 0 0;
+  align-items: center;
+}
+footer .footer-content .logo a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #ffffff;
+  position: relative;
+  left: 10px;
+  bottom: 10px;
+}
+footer .footer-content .bottom {
+  justify-content: space-between;
+  margin-top: 12px;
+}
+footer .footer-content .bottom a {
+  text-decoration: none;
+  color: #fff;
+  margin: 10px 30px;
+}
+footer .footer-content .bottom-adaptive {
+  display: none;
+}
+@media (max-width: 990px) {
+  footer .footer-content .bottom {
+    display: none;
+  }
+  footer .footer-content .bottom-adaptive {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+  }
+  footer .footer-content .bottom-adaptive a {
+    text-decoration: none;
+    color: #fff;
+    margin: 10px 30px;
+  }
+}
+@media (max-width: 560px) {
+  footer .footer-content {
+    flex-direction: column;
+  }
+  footer .footer-content .bottom-adaptive {
+    align-items: center;
+  }
+  footer .footer-content .logo {
+    align-items: center;
+  }
+}
+
+#tab-li-item {
+  display: none;
+}
+
+.choose-course, .search-course {
+  background: none;
+  border-radius: 15px;
+  border-color: #863558;
+  padding: 5px 35px 5px 35px;
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #2D2A32;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.choose-course:hover, .search-course:hover {
+  background: #863558;
+  color: #ffffff;
+}
+
+.search-course {
+  color: #fff;
+  background-color: #863558;
+  padding: 5px 50px 5px 50px;
+  margin-bottom: 40px;
+}
+
+.team_slide_1 {
+  background-image: url("../images/team/team-background.png");
+  background-repeat: no-repeat;
+}
+.team_slide_1 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.team_slide_1 .container h1 {
+  color: #fff;
+  font-size: 50px;
+  margin-top: 150px;
+  font-weight: 700;
+  text-shadow: 4px 3px 0px #863558;
+}
+.team_slide_1 .container h3 {
+  margin-top: 30px;
+  font-weight: 400;
+}
+.team_slide_1 .container p {
+  margin-top: 270px;
+  color: #fff;
+  font-weight: 200;
+}
+.team_slide_1 .container img {
+  margin-bottom: 5px;
+}
+@media (max-width: 560px) {
+  .team_slide_1 .container h1 {
+    text-align: center;
+    font-size: 60px;
+  }
+  .team_slide_1 .container h3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 40px;
+    font-size: 30px;
+  }
+  .team_slide_1 .container p {
+    margin-top: 160px;
+    font-size: 30px;
+  }
+}
+
+.team_slide_2 {
+  display: block;
+}
+.team_slide_2 .container {
+  background-color: rgba(250, 253, 246, 0.85);
+  border-radius: 30px;
+  display: flex;
+  padding: 30px;
+  flex-wrap: wrap;
+  margin: 30px auto;
+}
+@media (min-width: 1400px) {
+  .team_slide_2 .container {
+    width: 1360px;
+  }
+}
+@media (max-width: 1399px) {
+  .team_slide_2 .container {
+    width: 1170px;
+  }
+}
+@media (max-width: 1199px) {
+  .team_slide_2 .container {
+    width: 940px;
+  }
+}
+@media (max-width: 991px) {
+  .team_slide_2 .container {
+    width: 720px;
+  }
+}
+@media (max-width: 767px) {
+  .team_slide_2 .container {
+    width: 100%;
+  }
+}
+.team_slide_2 .container .team-member {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33.33%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (max-width: 990px) {
+  .team_slide_2 .container .team-member {
+    width: 50%;
+  }
+}
+@media (max-width: 560px) {
+  .team_slide_2 .container .team-member {
+    width: 100%;
+  }
+}
+.team_slide_2 .container .team-member .name {
+  font-size: 28px;
+  margin: 10px 0px 5px 0px;
+}
+.team_slide_2 .container .team-member p {
+  font-size: 24px;
+  margin: 0px 0px 50px 0px;
+}
+.team_slide_2 .container .team-member img {
+  height: auto;
+  width: 100%;
+  border-radius: 10px;
+}
+@media (max-width: 1199px) {
+  .team_slide_2 .container .team-member .name {
+    font-size: 25px;
+  }
+  .team_slide_2 .container .team-member p {
+    font-size: 23px;
+  }
+}
+@media (max-width: 990px) {
+  .team_slide_2 .container .team-member .name {
+    font-size: 23px;
+  }
+  .team_slide_2 .container .team-member p {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .team_slide_2 {
+    padding: 30px;
+  }
+}
+
+.courses_slide_1 {
+  background-image: url("../images/courses/courses-background.png");
+}
+.courses_slide_1 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.courses_slide_1 .container h1 {
+  color: #fff;
+  font-size: 70px;
+  margin-top: 100px;
+  font-weight: 700;
+  text-shadow: 4px 3px 0px #863558;
+  width: 350px;
+  text-align: center;
+}
+.courses_slide_1 .container .user-choose {
+  background-color: rgba(250, 253, 246, 0.85);
+  border-radius: 10px;
+  padding: 30px;
+  margin: 100px auto;
+}
+.courses_slide_1 .container .user-choose .checkboxes input[type=checkbox] {
+  height: 20px;
+  width: 20px;
+  border: 5px solid #863558;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+@media (max-width: 560px) {
+  .courses_slide_1 .container .user-choose .checkboxes {
+    text-align: left;
+  }
+  .courses_slide_1 .container .user-choose .checkboxes label {
+    display: inline-block;
+  }
+}
+.courses_slide_1 .container .user-choose .filters {
+  margin-bottom: 10px;
+}
+.courses_slide_1 .container .user-choose .filters select {
+  background-color: #fff;
+  border: 2px solid #863558;
+  border-radius: 10px;
+  height: 50px;
+  width: 200px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-left: 10px;
+  font-size: 15px;
+  color: #5F6162;
+}
+@media (max-width: 1200px) {
+  .courses_slide_1 .container .user-choose .filters select {
+    width: 150px;
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 990px) {
+  .courses_slide_1 .container .user-choose .filters select {
+    display: inline-block;
+    width: 250px;
+  }
+}
+@media (max-width: 350px) {
+  .courses_slide_1 .container .user-choose .filters select {
+    width: 150px;
+  }
+}
+@media (max-width: 990px) {
+  .courses_slide_1 .container .user-choose .filters {
+    text-align: center;
+  }
+}
+@media (max-width: 560px) {
+  .courses_slide_1 .container h1 {
+    text-align: center;
+    font-size: 60px;
+  }
+}
+@media (max-width: 350px) {
+  .courses_slide_1 .container h1 {
+    font-size: 40px;
+  }
+}
+
+.courses_slide_2 {
+  display: block;
+}
+.courses_slide_2 .container {
+  display: flex;
+  padding: 30px;
+  flex-wrap: wrap;
+  margin: 30px auto;
+}
+@media (min-width: 1400px) {
+  .courses_slide_2 .container {
+    width: 1360px;
+  }
+}
+@media (max-width: 1399px) {
+  .courses_slide_2 .container {
+    width: 1170px;
+  }
+}
+@media (max-width: 1199px) {
+  .courses_slide_2 .container {
+    width: 940px;
+  }
+}
+@media (max-width: 991px) {
+  .courses_slide_2 .container {
+    width: 720px;
+  }
+}
+@media (max-width: 767px) {
+  .courses_slide_2 .container {
+    width: 100%;
+  }
+}
+.courses_slide_2 .container .course-card {
+  background-color: #fff;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  width: calc(33.33% - 20px);
+  padding: 30px;
+  margin: 10px;
+}
+@media (min-width: 1400px) {
+  .courses_slide_2 .container .course-card {
+    margin-bottom: 50px;
+  }
+}
+@media (max-width: 991px) {
+  .courses_slide_2 .container .course-card {
+    width: calc(50% - 20px);
+    padding: 30px;
+  }
+}
+@media (max-width: 650px) {
+  .courses_slide_2 .container .course-card .choose-course {
+    font-size: 15px;
+  }
+}
+@media (max-width: 560px) {
+  .courses_slide_2 .container .course-card {
+    width: 100%;
+  }
+  .courses_slide_2 .container .course-card .choose-course {
+    font-size: 20px;
+  }
+}
+@media (max-width: 350px) {
+  .courses_slide_2 .container .course-card .choose-course {
+    font-size: 10px;
+  }
+}
+.courses_slide_2 .container .course-card .name {
+  font-size: 28px;
+  margin: 10px 0px 5px 0px;
+}
+.courses_slide_2 .container .course-card p {
+  font-size: 24px;
+  margin: 0px 0px 15px 0;
+}
+.courses_slide_2 .container .course-card img {
+  height: 200px;
+  width: 100%;
+  border-radius: 10px;
+}
+.courses_slide_2 .container .course-card .choose-course {
+  margin: 0 auto;
+}
+@media (max-width: 1199px) {
+  .courses_slide_2 .container .course-card .name {
+    font-size: 25px;
+  }
+  .courses_slide_2 .container .course-card p {
+    font-size: 23px;
+  }
+}
+@media (max-width: 990px) {
+  .courses_slide_2 .container .course-card .name {
+    font-size: 23px;
+  }
+  .courses_slide_2 .container .course-card p {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .courses_slide_2 {
+    padding: 30px;
+  }
+}
+
+.modal__window {
+  overflow-y: auto;
+}
+
+.register, .login, .askquestion,
+.thankforquestion, .faq, .thankforbuying,
+.buycourse, .usercourses, .courseinfo {
+  background-color: rgba(98, 190, 193, 0.81);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  display: none;
+}
+.register .container, .login .container, .askquestion .container,
+.thankforquestion .container, .faq .container, .thankforbuying .container,
+.buycourse .container, .usercourses .container, .courseinfo .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.register .container .sign-up, .register .container .log-in, .register .container .ask-question,
+.register .container .thank-for-question, .register .container .questions,
+.register .container .thank-for-buying, .register .container .buy-course,
+.register .container .user-courses, .register .container .course-info, .login .container .sign-up, .login .container .log-in, .login .container .ask-question,
+.login .container .thank-for-question, .login .container .questions,
+.login .container .thank-for-buying, .login .container .buy-course,
+.login .container .user-courses, .login .container .course-info, .askquestion .container .sign-up, .askquestion .container .log-in, .askquestion .container .ask-question,
+.askquestion .container .thank-for-question, .askquestion .container .questions,
+.askquestion .container .thank-for-buying, .askquestion .container .buy-course,
+.askquestion .container .user-courses, .askquestion .container .course-info,
+.thankforquestion .container .sign-up,
+.thankforquestion .container .log-in,
+.thankforquestion .container .ask-question,
+.thankforquestion .container .thank-for-question,
+.thankforquestion .container .questions,
+.thankforquestion .container .thank-for-buying,
+.thankforquestion .container .buy-course,
+.thankforquestion .container .user-courses,
+.thankforquestion .container .course-info, .faq .container .sign-up, .faq .container .log-in, .faq .container .ask-question,
+.faq .container .thank-for-question, .faq .container .questions,
+.faq .container .thank-for-buying, .faq .container .buy-course,
+.faq .container .user-courses, .faq .container .course-info, .thankforbuying .container .sign-up, .thankforbuying .container .log-in, .thankforbuying .container .ask-question,
+.thankforbuying .container .thank-for-question, .thankforbuying .container .questions,
+.thankforbuying .container .thank-for-buying, .thankforbuying .container .buy-course,
+.thankforbuying .container .user-courses, .thankforbuying .container .course-info,
+.buycourse .container .sign-up,
+.buycourse .container .log-in,
+.buycourse .container .ask-question,
+.buycourse .container .thank-for-question,
+.buycourse .container .questions,
+.buycourse .container .thank-for-buying,
+.buycourse .container .buy-course,
+.buycourse .container .user-courses,
+.buycourse .container .course-info, .usercourses .container .sign-up, .usercourses .container .log-in, .usercourses .container .ask-question,
+.usercourses .container .thank-for-question, .usercourses .container .questions,
+.usercourses .container .thank-for-buying, .usercourses .container .buy-course,
+.usercourses .container .user-courses, .usercourses .container .course-info, .courseinfo .container .sign-up, .courseinfo .container .log-in, .courseinfo .container .ask-question,
+.courseinfo .container .thank-for-question, .courseinfo .container .questions,
+.courseinfo .container .thank-for-buying, .courseinfo .container .buy-course,
+.courseinfo .container .user-courses, .courseinfo .container .course-info {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+  width: 400px;
+}
+@media (max-width: 559px) {
+  .register .container .sign-up, .register .container .log-in, .register .container .ask-question,
+  .register .container .thank-for-question, .register .container .questions,
+  .register .container .thank-for-buying, .register .container .buy-course,
+  .register .container .user-courses, .register .container .course-info, .login .container .sign-up, .login .container .log-in, .login .container .ask-question,
+  .login .container .thank-for-question, .login .container .questions,
+  .login .container .thank-for-buying, .login .container .buy-course,
+  .login .container .user-courses, .login .container .course-info, .askquestion .container .sign-up, .askquestion .container .log-in, .askquestion .container .ask-question,
+  .askquestion .container .thank-for-question, .askquestion .container .questions,
+  .askquestion .container .thank-for-buying, .askquestion .container .buy-course,
+  .askquestion .container .user-courses, .askquestion .container .course-info,
+  .thankforquestion .container .sign-up,
+  .thankforquestion .container .log-in,
+  .thankforquestion .container .ask-question,
+  .thankforquestion .container .thank-for-question,
+  .thankforquestion .container .questions,
+  .thankforquestion .container .thank-for-buying,
+  .thankforquestion .container .buy-course,
+  .thankforquestion .container .user-courses,
+  .thankforquestion .container .course-info, .faq .container .sign-up, .faq .container .log-in, .faq .container .ask-question,
+  .faq .container .thank-for-question, .faq .container .questions,
+  .faq .container .thank-for-buying, .faq .container .buy-course,
+  .faq .container .user-courses, .faq .container .course-info, .thankforbuying .container .sign-up, .thankforbuying .container .log-in, .thankforbuying .container .ask-question,
+  .thankforbuying .container .thank-for-question, .thankforbuying .container .questions,
+  .thankforbuying .container .thank-for-buying, .thankforbuying .container .buy-course,
+  .thankforbuying .container .user-courses, .thankforbuying .container .course-info,
+  .buycourse .container .sign-up,
+  .buycourse .container .log-in,
+  .buycourse .container .ask-question,
+  .buycourse .container .thank-for-question,
+  .buycourse .container .questions,
+  .buycourse .container .thank-for-buying,
+  .buycourse .container .buy-course,
+  .buycourse .container .user-courses,
+  .buycourse .container .course-info, .usercourses .container .sign-up, .usercourses .container .log-in, .usercourses .container .ask-question,
+  .usercourses .container .thank-for-question, .usercourses .container .questions,
+  .usercourses .container .thank-for-buying, .usercourses .container .buy-course,
+  .usercourses .container .user-courses, .usercourses .container .course-info, .courseinfo .container .sign-up, .courseinfo .container .log-in, .courseinfo .container .ask-question,
+  .courseinfo .container .thank-for-question, .courseinfo .container .questions,
+  .courseinfo .container .thank-for-buying, .courseinfo .container .buy-course,
+  .courseinfo .container .user-courses, .courseinfo .container .course-info {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding-top: 100px;
+  }
+}
+.register .container .sign-up a, .register .container .log-in a, .register .container .ask-question a,
+.register .container .thank-for-question a, .register .container .questions a,
+.register .container .thank-for-buying a, .register .container .buy-course a,
+.register .container .user-courses a, .register .container .course-info a, .login .container .sign-up a, .login .container .log-in a, .login .container .ask-question a,
+.login .container .thank-for-question a, .login .container .questions a,
+.login .container .thank-for-buying a, .login .container .buy-course a,
+.login .container .user-courses a, .login .container .course-info a, .askquestion .container .sign-up a, .askquestion .container .log-in a, .askquestion .container .ask-question a,
+.askquestion .container .thank-for-question a, .askquestion .container .questions a,
+.askquestion .container .thank-for-buying a, .askquestion .container .buy-course a,
+.askquestion .container .user-courses a, .askquestion .container .course-info a,
+.thankforquestion .container .sign-up a,
+.thankforquestion .container .log-in a,
+.thankforquestion .container .ask-question a,
+.thankforquestion .container .thank-for-question a,
+.thankforquestion .container .questions a,
+.thankforquestion .container .thank-for-buying a,
+.thankforquestion .container .buy-course a,
+.thankforquestion .container .user-courses a,
+.thankforquestion .container .course-info a, .faq .container .sign-up a, .faq .container .log-in a, .faq .container .ask-question a,
+.faq .container .thank-for-question a, .faq .container .questions a,
+.faq .container .thank-for-buying a, .faq .container .buy-course a,
+.faq .container .user-courses a, .faq .container .course-info a, .thankforbuying .container .sign-up a, .thankforbuying .container .log-in a, .thankforbuying .container .ask-question a,
+.thankforbuying .container .thank-for-question a, .thankforbuying .container .questions a,
+.thankforbuying .container .thank-for-buying a, .thankforbuying .container .buy-course a,
+.thankforbuying .container .user-courses a, .thankforbuying .container .course-info a,
+.buycourse .container .sign-up a,
+.buycourse .container .log-in a,
+.buycourse .container .ask-question a,
+.buycourse .container .thank-for-question a,
+.buycourse .container .questions a,
+.buycourse .container .thank-for-buying a,
+.buycourse .container .buy-course a,
+.buycourse .container .user-courses a,
+.buycourse .container .course-info a, .usercourses .container .sign-up a, .usercourses .container .log-in a, .usercourses .container .ask-question a,
+.usercourses .container .thank-for-question a, .usercourses .container .questions a,
+.usercourses .container .thank-for-buying a, .usercourses .container .buy-course a,
+.usercourses .container .user-courses a, .usercourses .container .course-info a, .courseinfo .container .sign-up a, .courseinfo .container .log-in a, .courseinfo .container .ask-question a,
+.courseinfo .container .thank-for-question a, .courseinfo .container .questions a,
+.courseinfo .container .thank-for-buying a, .courseinfo .container .buy-course a,
+.courseinfo .container .user-courses a, .courseinfo .container .course-info a {
+  display: block;
+  margin-top: 5px;
+  text-decoration: none;
+  color: black;
+}
+.register .container .sign-up .close-button, .register .container .log-in .close-button, .register .container .ask-question .close-button,
+.register .container .thank-for-question .close-button, .register .container .questions .close-button,
+.register .container .thank-for-buying .close-button, .register .container .buy-course .close-button,
+.register .container .user-courses .close-button, .register .container .course-info .close-button, .login .container .sign-up .close-button, .login .container .log-in .close-button, .login .container .ask-question .close-button,
+.login .container .thank-for-question .close-button, .login .container .questions .close-button,
+.login .container .thank-for-buying .close-button, .login .container .buy-course .close-button,
+.login .container .user-courses .close-button, .login .container .course-info .close-button, .askquestion .container .sign-up .close-button, .askquestion .container .log-in .close-button, .askquestion .container .ask-question .close-button,
+.askquestion .container .thank-for-question .close-button, .askquestion .container .questions .close-button,
+.askquestion .container .thank-for-buying .close-button, .askquestion .container .buy-course .close-button,
+.askquestion .container .user-courses .close-button, .askquestion .container .course-info .close-button,
+.thankforquestion .container .sign-up .close-button,
+.thankforquestion .container .log-in .close-button,
+.thankforquestion .container .ask-question .close-button,
+.thankforquestion .container .thank-for-question .close-button,
+.thankforquestion .container .questions .close-button,
+.thankforquestion .container .thank-for-buying .close-button,
+.thankforquestion .container .buy-course .close-button,
+.thankforquestion .container .user-courses .close-button,
+.thankforquestion .container .course-info .close-button, .faq .container .sign-up .close-button, .faq .container .log-in .close-button, .faq .container .ask-question .close-button,
+.faq .container .thank-for-question .close-button, .faq .container .questions .close-button,
+.faq .container .thank-for-buying .close-button, .faq .container .buy-course .close-button,
+.faq .container .user-courses .close-button, .faq .container .course-info .close-button, .thankforbuying .container .sign-up .close-button, .thankforbuying .container .log-in .close-button, .thankforbuying .container .ask-question .close-button,
+.thankforbuying .container .thank-for-question .close-button, .thankforbuying .container .questions .close-button,
+.thankforbuying .container .thank-for-buying .close-button, .thankforbuying .container .buy-course .close-button,
+.thankforbuying .container .user-courses .close-button, .thankforbuying .container .course-info .close-button,
+.buycourse .container .sign-up .close-button,
+.buycourse .container .log-in .close-button,
+.buycourse .container .ask-question .close-button,
+.buycourse .container .thank-for-question .close-button,
+.buycourse .container .questions .close-button,
+.buycourse .container .thank-for-buying .close-button,
+.buycourse .container .buy-course .close-button,
+.buycourse .container .user-courses .close-button,
+.buycourse .container .course-info .close-button, .usercourses .container .sign-up .close-button, .usercourses .container .log-in .close-button, .usercourses .container .ask-question .close-button,
+.usercourses .container .thank-for-question .close-button, .usercourses .container .questions .close-button,
+.usercourses .container .thank-for-buying .close-button, .usercourses .container .buy-course .close-button,
+.usercourses .container .user-courses .close-button, .usercourses .container .course-info .close-button, .courseinfo .container .sign-up .close-button, .courseinfo .container .log-in .close-button, .courseinfo .container .ask-question .close-button,
+.courseinfo .container .thank-for-question .close-button, .courseinfo .container .questions .close-button,
+.courseinfo .container .thank-for-buying .close-button, .courseinfo .container .buy-course .close-button,
+.courseinfo .container .user-courses .close-button, .courseinfo .container .course-info .close-button {
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.register .container .sign-up h2, .register .container .log-in h2, .register .container .ask-question h2,
+.register .container .thank-for-question h2, .register .container .questions h2,
+.register .container .thank-for-buying h2, .register .container .buy-course h2,
+.register .container .user-courses h2, .register .container .course-info h2, .login .container .sign-up h2, .login .container .log-in h2, .login .container .ask-question h2,
+.login .container .thank-for-question h2, .login .container .questions h2,
+.login .container .thank-for-buying h2, .login .container .buy-course h2,
+.login .container .user-courses h2, .login .container .course-info h2, .askquestion .container .sign-up h2, .askquestion .container .log-in h2, .askquestion .container .ask-question h2,
+.askquestion .container .thank-for-question h2, .askquestion .container .questions h2,
+.askquestion .container .thank-for-buying h2, .askquestion .container .buy-course h2,
+.askquestion .container .user-courses h2, .askquestion .container .course-info h2,
+.thankforquestion .container .sign-up h2,
+.thankforquestion .container .log-in h2,
+.thankforquestion .container .ask-question h2,
+.thankforquestion .container .thank-for-question h2,
+.thankforquestion .container .questions h2,
+.thankforquestion .container .thank-for-buying h2,
+.thankforquestion .container .buy-course h2,
+.thankforquestion .container .user-courses h2,
+.thankforquestion .container .course-info h2, .faq .container .sign-up h2, .faq .container .log-in h2, .faq .container .ask-question h2,
+.faq .container .thank-for-question h2, .faq .container .questions h2,
+.faq .container .thank-for-buying h2, .faq .container .buy-course h2,
+.faq .container .user-courses h2, .faq .container .course-info h2, .thankforbuying .container .sign-up h2, .thankforbuying .container .log-in h2, .thankforbuying .container .ask-question h2,
+.thankforbuying .container .thank-for-question h2, .thankforbuying .container .questions h2,
+.thankforbuying .container .thank-for-buying h2, .thankforbuying .container .buy-course h2,
+.thankforbuying .container .user-courses h2, .thankforbuying .container .course-info h2,
+.buycourse .container .sign-up h2,
+.buycourse .container .log-in h2,
+.buycourse .container .ask-question h2,
+.buycourse .container .thank-for-question h2,
+.buycourse .container .questions h2,
+.buycourse .container .thank-for-buying h2,
+.buycourse .container .buy-course h2,
+.buycourse .container .user-courses h2,
+.buycourse .container .course-info h2, .usercourses .container .sign-up h2, .usercourses .container .log-in h2, .usercourses .container .ask-question h2,
+.usercourses .container .thank-for-question h2, .usercourses .container .questions h2,
+.usercourses .container .thank-for-buying h2, .usercourses .container .buy-course h2,
+.usercourses .container .user-courses h2, .usercourses .container .course-info h2, .courseinfo .container .sign-up h2, .courseinfo .container .log-in h2, .courseinfo .container .ask-question h2,
+.courseinfo .container .thank-for-question h2, .courseinfo .container .questions h2,
+.courseinfo .container .thank-for-buying h2, .courseinfo .container .buy-course h2,
+.courseinfo .container .user-courses h2, .courseinfo .container .course-info h2 {
+  margin-top: 0;
+  font-size: 30px;
+}
+.register .container .sign-up form label, .register .container .log-in form label, .register .container .ask-question form label,
+.register .container .thank-for-question form label, .register .container .questions form label,
+.register .container .thank-for-buying form label, .register .container .buy-course form label,
+.register .container .user-courses form label, .register .container .course-info form label, .login .container .sign-up form label, .login .container .log-in form label, .login .container .ask-question form label,
+.login .container .thank-for-question form label, .login .container .questions form label,
+.login .container .thank-for-buying form label, .login .container .buy-course form label,
+.login .container .user-courses form label, .login .container .course-info form label, .askquestion .container .sign-up form label, .askquestion .container .log-in form label, .askquestion .container .ask-question form label,
+.askquestion .container .thank-for-question form label, .askquestion .container .questions form label,
+.askquestion .container .thank-for-buying form label, .askquestion .container .buy-course form label,
+.askquestion .container .user-courses form label, .askquestion .container .course-info form label,
+.thankforquestion .container .sign-up form label,
+.thankforquestion .container .log-in form label,
+.thankforquestion .container .ask-question form label,
+.thankforquestion .container .thank-for-question form label,
+.thankforquestion .container .questions form label,
+.thankforquestion .container .thank-for-buying form label,
+.thankforquestion .container .buy-course form label,
+.thankforquestion .container .user-courses form label,
+.thankforquestion .container .course-info form label, .faq .container .sign-up form label, .faq .container .log-in form label, .faq .container .ask-question form label,
+.faq .container .thank-for-question form label, .faq .container .questions form label,
+.faq .container .thank-for-buying form label, .faq .container .buy-course form label,
+.faq .container .user-courses form label, .faq .container .course-info form label, .thankforbuying .container .sign-up form label, .thankforbuying .container .log-in form label, .thankforbuying .container .ask-question form label,
+.thankforbuying .container .thank-for-question form label, .thankforbuying .container .questions form label,
+.thankforbuying .container .thank-for-buying form label, .thankforbuying .container .buy-course form label,
+.thankforbuying .container .user-courses form label, .thankforbuying .container .course-info form label,
+.buycourse .container .sign-up form label,
+.buycourse .container .log-in form label,
+.buycourse .container .ask-question form label,
+.buycourse .container .thank-for-question form label,
+.buycourse .container .questions form label,
+.buycourse .container .thank-for-buying form label,
+.buycourse .container .buy-course form label,
+.buycourse .container .user-courses form label,
+.buycourse .container .course-info form label, .usercourses .container .sign-up form label, .usercourses .container .log-in form label, .usercourses .container .ask-question form label,
+.usercourses .container .thank-for-question form label, .usercourses .container .questions form label,
+.usercourses .container .thank-for-buying form label, .usercourses .container .buy-course form label,
+.usercourses .container .user-courses form label, .usercourses .container .course-info form label, .courseinfo .container .sign-up form label, .courseinfo .container .log-in form label, .courseinfo .container .ask-question form label,
+.courseinfo .container .thank-for-question form label, .courseinfo .container .questions form label,
+.courseinfo .container .thank-for-buying form label, .courseinfo .container .buy-course form label,
+.courseinfo .container .user-courses form label, .courseinfo .container .course-info form label {
+  text-align: left;
+  display: block;
+}
+.register .container .sign-up form .form-field, .register .container .log-in form .form-field, .register .container .ask-question form .form-field,
+.register .container .thank-for-question form .form-field, .register .container .questions form .form-field,
+.register .container .thank-for-buying form .form-field, .register .container .buy-course form .form-field,
+.register .container .user-courses form .form-field, .register .container .course-info form .form-field, .login .container .sign-up form .form-field, .login .container .log-in form .form-field, .login .container .ask-question form .form-field,
+.login .container .thank-for-question form .form-field, .login .container .questions form .form-field,
+.login .container .thank-for-buying form .form-field, .login .container .buy-course form .form-field,
+.login .container .user-courses form .form-field, .login .container .course-info form .form-field, .askquestion .container .sign-up form .form-field, .askquestion .container .log-in form .form-field, .askquestion .container .ask-question form .form-field,
+.askquestion .container .thank-for-question form .form-field, .askquestion .container .questions form .form-field,
+.askquestion .container .thank-for-buying form .form-field, .askquestion .container .buy-course form .form-field,
+.askquestion .container .user-courses form .form-field, .askquestion .container .course-info form .form-field,
+.thankforquestion .container .sign-up form .form-field,
+.thankforquestion .container .log-in form .form-field,
+.thankforquestion .container .ask-question form .form-field,
+.thankforquestion .container .thank-for-question form .form-field,
+.thankforquestion .container .questions form .form-field,
+.thankforquestion .container .thank-for-buying form .form-field,
+.thankforquestion .container .buy-course form .form-field,
+.thankforquestion .container .user-courses form .form-field,
+.thankforquestion .container .course-info form .form-field, .faq .container .sign-up form .form-field, .faq .container .log-in form .form-field, .faq .container .ask-question form .form-field,
+.faq .container .thank-for-question form .form-field, .faq .container .questions form .form-field,
+.faq .container .thank-for-buying form .form-field, .faq .container .buy-course form .form-field,
+.faq .container .user-courses form .form-field, .faq .container .course-info form .form-field, .thankforbuying .container .sign-up form .form-field, .thankforbuying .container .log-in form .form-field, .thankforbuying .container .ask-question form .form-field,
+.thankforbuying .container .thank-for-question form .form-field, .thankforbuying .container .questions form .form-field,
+.thankforbuying .container .thank-for-buying form .form-field, .thankforbuying .container .buy-course form .form-field,
+.thankforbuying .container .user-courses form .form-field, .thankforbuying .container .course-info form .form-field,
+.buycourse .container .sign-up form .form-field,
+.buycourse .container .log-in form .form-field,
+.buycourse .container .ask-question form .form-field,
+.buycourse .container .thank-for-question form .form-field,
+.buycourse .container .questions form .form-field,
+.buycourse .container .thank-for-buying form .form-field,
+.buycourse .container .buy-course form .form-field,
+.buycourse .container .user-courses form .form-field,
+.buycourse .container .course-info form .form-field, .usercourses .container .sign-up form .form-field, .usercourses .container .log-in form .form-field, .usercourses .container .ask-question form .form-field,
+.usercourses .container .thank-for-question form .form-field, .usercourses .container .questions form .form-field,
+.usercourses .container .thank-for-buying form .form-field, .usercourses .container .buy-course form .form-field,
+.usercourses .container .user-courses form .form-field, .usercourses .container .course-info form .form-field, .courseinfo .container .sign-up form .form-field, .courseinfo .container .log-in form .form-field, .courseinfo .container .ask-question form .form-field,
+.courseinfo .container .thank-for-question form .form-field, .courseinfo .container .questions form .form-field,
+.courseinfo .container .thank-for-buying form .form-field, .courseinfo .container .buy-course form .form-field,
+.courseinfo .container .user-courses form .form-field, .courseinfo .container .course-info form .form-field {
+  text-align: left;
+  display: flex;
+  height: 40px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 20px;
+  border-width: 1px;
+  padding-left: 5px;
+}
+
+.askquestion .container {
+  background-color: transparent;
+}
+.askquestion .container .ask-question {
+  text-align: left;
+  width: 500px;
+}
+.askquestion .container .ask-question select {
+  background-color: #fff;
+  border: 1px solid;
+  border-radius: 10px;
+  height: 45px;
+  width: 200px;
+  padding-left: 10px;
+  font-size: 15px;
+  color: #5F6162;
+  margin-bottom: 20px;
+}
+.askquestion .container .ask-question textarea {
+  width: 100%;
+}
+.askquestion .container .ask-question .choose-course {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+@media (max-width: 559px) {
+  .askquestion .container .ask-question {
+    width: 100%;
+    border-radius: 0;
+    padding-top: 100px;
+  }
+  .askquestion .container .ask-question h2 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 559px) {
+  .askquestion .container {
+    width: 100%;
+  }
+}
+
+.thankforquestion .container .thank-for-question, .thankforquestion .container .thank-for-buying, .thankforbuying .container .thank-for-question, .thankforbuying .container .thank-for-buying, .usercourses .container .thank-for-question, .usercourses .container .thank-for-buying, .courseinfo .container .thank-for-question, .courseinfo .container .thank-for-buying {
+  width: 550px;
+}
+.thankforquestion .container .thank-for-question h2, .thankforquestion .container .thank-for-buying h2, .thankforbuying .container .thank-for-question h2, .thankforbuying .container .thank-for-buying h2, .usercourses .container .thank-for-question h2, .usercourses .container .thank-for-buying h2, .courseinfo .container .thank-for-question h2, .courseinfo .container .thank-for-buying h2 {
+  margin: 0;
+}
+
+.faq .container .questions {
+  width: 500px;
+  text-align: left;
+}
+@media (max-width: 559px) {
+  .faq .container .questions {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding-top: 100px;
+  }
+}
+
+.buycourse .container .buy-course .row {
+  display: flex;
+  justify-content: space-between;
+}
+.buycourse .container .buy-course .row .col {
+  margin-right: 15px;
+}
+
+.usercourses .container .user-courses .account {
+  display: flex;
+}
+.usercourses .container .user-courses .account div {
+  text-align: left;
+  margin-right: 30px;
+}
+.usercourses .container .user-courses .account div h3 {
+  margin-bottom: 0;
+}
+.usercourses .container .user-courses .account div img {
+  padding-top: 10px;
+  height: 80px;
+}
+
+.courseinfo .container .course-info {
+  width: 930px;
+}
+.courseinfo .container .course-info .info {
+  text-align: left;
+}
+.courseinfo .container .course-info .info .description {
+  display: flex;
+}
+.courseinfo .container .course-info .info .description .title {
+  display: flex;
+}
+.courseinfo .container .course-info .info .description .title h3 {
+  margin: 0 10px;
+  font-size: 25px;
+}
+.courseinfo .container .course-info .info p {
+  margin-top: 4px;
+  font-size: 20px;
+}
+.courseinfo .container .course-info .choose-course {
+  display: block;
+  margin: 0 auto;
+}
+@media (max-width: 931px) {
+  .courseinfo .container .course-info {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding-top: 100px;
+  }
+}
+@media (max-width: 560px) {
+  .courseinfo .container .course-info .image {
+    display: none;
+  }
+}
