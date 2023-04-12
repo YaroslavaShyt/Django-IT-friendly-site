@@ -4,7 +4,6 @@ from django.db import models
 from django.utils.encoding import smart_str
 
 
-"""
 # Pure Python singleton
 class Singleton:
     _instance = None
@@ -42,7 +41,7 @@ class SingletonModel(models.Model):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
-
+"""
 singleton_instance1 = SingletonModel(name="Singleton 1", email='email_1.com')
 singleton_instance1.save()
 singleton_instance2 = SingletonModel(name="Singleton 2", email='email_2.com')
@@ -52,7 +51,7 @@ if singleton_instance1.pk == singleton_instance2.pk:
 else:
     result = "The Singleton model does not provide a true singleton."
 print(f'{singleton_instance1.name}\n{singleton_instance1.email}\n{result}')
-
+"""
 
 # OOP
 class Animal:
@@ -61,7 +60,7 @@ class Animal:
         self.name = name
         self.age = age
 
-    def str(self):
+    def __str__(self):
         return f'<p><b>Name:</b> {self.name}</p><p><b>Gender:</b> {self.gender}</p><p><b>Age:</b> {self.age}</p>'
 
     @property
@@ -142,9 +141,6 @@ class Dog(Cat):
     def init(self, gender, name, age, sound):
         super().__init__(gender, name, age, sound)
 
-    def make_sound(self):
-        return f'{self.name}: {self.sound}'
-
 
 data = [Cat('f', 'Monica', 4, 'meoooooow'), Dog('m', 'Bim', 6, 'woof'), Turtle('f', 'Tatia', 10)]
 hash_list = {'fruit': 'apple', 'vegetable': 'cucumber', 'liquid': 'agua'}
@@ -158,20 +154,18 @@ def demonstrate_for_cycle():
     return res
 
 
-def index(request):
-    return HttpResponse(f"{cat}"
-                        f"{cat.make_sound()}"
-                        f"{dog}"
-                        f"{dog.make_sound()}"
-                        f"{turtle}"
-                        f"{turtle.make_sound()}"
-                        f"<p>{turtle.name.split('a')}</p>"
-                        f"<p>{''.join(turtle.name.split('a'))}</p>"
-                        f"<p>{demonstrate_for_cycle()}</p>"
-                        f"<p>{hash_list['liquid']}, {hash_list}"
-                        f"<p>{hash_list['fruit'] < hash_list['vegetable']}</p>"
-                        f"{int(21.0)}, {float(21)}, {bool(21)}, {list(21)}, {tuple(21)}, {str(21)}")
-"""
+print(f"{cat}\n"
+      f"{cat.make_sound()}\n"
+      f"{dog}\n"
+      f"{dog.make_sound()}\n"
+      f"{turtle}\n"
+      f"{turtle.make_sound()}\n"
+      f"{turtle.name.split('a')}\n"
+      f"{''.join(turtle.name.split('a'))}\n"
+      f"{demonstrate_for_cycle()}\n"
+      f"{hash_list['liquid']}, {hash_list}\n"
+      f"{hash_list['fruit'] < hash_list['vegetable']}\n"
+      f"{int(21.0)}, {float(21)}, {bool(21)}, {str(21)}\n")
 
 
 def set_cookie(request):
@@ -188,18 +182,8 @@ def save_session(request):
 
 
 def index(request):
-    return render(request, 'it_friendly/index.html', {'name': (request.session.get('name', 'Вхід'))})
-   # return render(request, 'it_friendly/index.html', {'name': (request.COOKIES.get('name', 'Вхід'))})
-
-"""
-    print(request.GET)
-    data = 'Вхід'
-    if request.method == 'GET':
-        data = request.GET.get('name')
-    return render(request,
-                  'it_friendly/index.html',
-                  {'name': data})
-   """
+    # return render(request, 'it_friendly/index.html', {'name': (request.session.get('name', 'Вхід'))})
+   return render(request, 'it_friendly/index.html', {'name': (request.COOKIES.get('name', 'Вхід'))})
 
 
 def courses(request):

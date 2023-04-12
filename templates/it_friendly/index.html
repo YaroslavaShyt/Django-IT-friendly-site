@@ -441,7 +441,7 @@
       <div class="sign-up">
         <button class="close-button">X</button>
         <h2>Реєстрація</h2>
-        <form action="{% url 'save_session' %}" method="POST">
+        <form action="{% url 'set_cookie' %}" method="POST">
             {% csrf_token %}
           <label for="name">Ім'я та прізвище</label>
           <input type="text" id="name" name="name" required class="form-field"><br>
