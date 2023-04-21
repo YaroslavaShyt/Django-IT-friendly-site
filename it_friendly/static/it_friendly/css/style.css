@@ -1419,6 +1419,7 @@ footer .footer-content .bottom-adaptive {
   z-index: 99999;
   display: none;
 }
+
 .register .container, .login .container, .askquestion .container,
 .thankforquestion .container, .faq .container, .thankforbuying .container,
 .buycourse .container, .usercourses .container, .courseinfo .container {

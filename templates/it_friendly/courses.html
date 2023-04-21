@@ -1,49 +1,9 @@
+{% extends 'it_friendly/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ukr">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'it_friendly/css/style.css' %}">
+{% block title %}Курси{% endblock %}
 
-  <link rel="icon" type="image/x-icon" href="{%  static 'it_friendly/images/favicon.ico' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;400;700;800&display=swap" rel="stylesheet">
-
-  <title>IT-friendly</title>
-</head>
-
-<body>
-
-  <header>
-    <div class="container">
-      <div>
-        <div class="logo">
-          <img src="{%  static 'it_friendly/images/logo.svg' %}" alt="">
-          <a href="{% url 'index' %}">It-friendly</a>
-        </div>
-        <p>Простір для навчання в IT</p>
-      </div>
-
-      <nav class="top">
-        <ul>
-          <li><a href="{% url 'team' %}">Наша команда</a></li>
-          <li><a href="{% url 'courses' %}">Навчання</a></li>
-          <li><a href="#" data-modal="login">Вхід</a></li>
-          <li><a href="#" data-modal="register">Реєстрація</a></li>
-        </ul>
-      </nav>
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </header>
-
+{% block main %}
   <section class="courses_slide_1">
     <div class="container">
       <h1>IT-friendly education</h1>
@@ -51,8 +11,10 @@
         <div class="filters">
           <select name="menu">
             <option value="option1">Рівень</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <option value="option2">Beginner</option>
+            <option value="option3">Trainee</option>
+              <option value="option3">Middle</option>
+              <option value="option3">Senior</option>
           </select>
           <select name="menu">
             <option value="option1">Напрям</option>
@@ -70,286 +32,63 @@
             <option value="option3">Option 3</option>
           </select>
         </div>
-        <div class="checkboxes">
-          <label>
-            <input type="checkbox" name="study-type" value="courses">
-            Курси
-          </label>
-          <label>
-            <input type="checkbox" name="study-type" value="meetings">
-            Офлайн-зустрічі
-          </label>
-          <label>
-            <input type="checkbox" name="study-type" value="mentor-programmes">
-            Менторські програми
-          </label>
-          <label>
-            <input type="checkbox" name="study-type" value="webinars">
-            Вебінари
-          </label>
-          <label>
-            <input type="checkbox" name="fruits" value="team-projects">
-            Командні проекти
-          </label>
-        </div>
-      </div>
-      <button class="search-course">Пошук</button>
+       <div class="checkboxes">
+    <label>
+        <input type="checkbox" name="study-type" value="courses">
+        Курси
+    </label>
+    <label>
+        <input type="checkbox" name="study-type" value="meetings">
+        Офлайн-зустрічі
+    </label>
+    <label>
+        <input type="checkbox" name="study-type" value="mentor-programmes">
+        Менторські програми
+    </label>
+    <label>
+        <input type="checkbox" name="study-type" value="webinars">
+        Вебінари
+    </label>
+    <label>
+        <input type="checkbox" name="study-type" value="team-projects">
+        Командні проекти
+    </label>
+</div>
+
+</div>
+        <button class="search-course" onclick="location.href='{% url 'courses' %}?study-type={{ course_type }}'">Пошук</button>
+
+<script>
+    function getSelectedCheckboxes() {
+        const checkboxes = document.querySelectorAll('input[name="study-type"]:checked');
+        return Array.from(checkboxes).map(cb => cb.value);
+    }
+
+    const searchBtn = document.querySelector('.search-course');
+    searchBtn.addEventListener('click', function() {
+        const selectedCheckboxes = getSelectedCheckboxes();
+        const queryParams = new URLSearchParams({
+            'study-type': selectedCheckboxes.join(',')
+        });
+        location.href = `{% url 'courses' %}?${queryParams.toString()}`;
+    });
+</script>
+
     </div>
   </section>
   <section class="courses_slide_2">
     <div class="container">
-      <div class="course-card">
-        <p>Курс</p>
-        <img src="{% static 'it_friendly/images/courses/database.svg' %}" alt="">
-        <h5 class="name">Бази даних</h5>
-        <p>Ціна: 2400грн</p>
-        <p>Рівень: початківці, ті хто хочуть вдосконалити знання</p>
-        <button class="choose-course" data-modal="courseinfo">Детальніше</button>
-      </div>
-      <div class="course-card">
-        <p>Вебінар</p>
-        <img src="{% static 'it_friendly/images/courses/dart.svg' %}" alt="">
-        <h5 class="name">Перспективи розробки на Dart</h5>
-        <p>Ціна: безкоштовно</p>
-        <p>Рівень: початківці</p>
-        <button class="choose-course" data-modal="courseinfo">Детальніше</button>
-      </div>
-      <div class="course-card">
-        <p>Вебінар</p>
-        <img src="{% static 'it_friendly/images/courses/c++.svg' %}" alt="">
-        <h5 class="name">Розробка ігор на C++</h5>
-        <p>Ціна: 200грн</p>
-        <p>Рівень: junior і вище</p>
-        <button class="choose-course" data-modal="courseinfo">Детальніше</button>
-      </div>
-      <div class="course-card">
-        <p>Курс</p>
-        <img src="{% static 'it_friendly/images/courses/git.svg' %}" alt="">
-        <h5 class="name">Git-master</h5>
-        <p>Ціна: 2000грн</p>
-        <p>Рівень: всі</p>
-        <button class="choose-course" data-modal="courseinfo">Детальніше</button>
-      </div>
-      <div class="course-card">
-        <p>Вебінар</p>
-        <img src="{% static 'it_friendly/images/courses/arduino.svg' %}" alt="">
-        <h5 class="name">Arduino для початківців</h5>
-        <p>Ціна: безкоштовно</p>
-        <p>Рівень: початківці</p>
-        <button class="choose-course" data-modal="courseinfo">Детальніше</button>
-      </div>
-
-
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="logo">
-          <svg width="40" height="40" viewBox="0 0 55 52" fill="none" xmlns="http://www.w3.org/2000/svg"
-            class="logo-icon">
-            <ellipse cx="27.5965" cy="26" rx="27.276" ry="26" fill="#EBEFBF" />
-            <path
-              d="M15.48 16.4023H16.2886V35H15.48V16.4023ZM13.8628 16.4023H14.6714V35H13.8628V16.4023ZM12.2456 16.4023H13.0542V35H12.2456V16.4023ZM10.6284 16.4023H11.437V35H10.6284V16.4023ZM18.063 17.2109V16.4023H30.1919V17.2109H18.063ZM18.063 18.8281V18.0195H30.1919V18.8281H18.063ZM18.063 20.4453V19.6367H30.1919V20.4453H26.9575V35H26.1489V20.4453H25.3403V35H24.5317V20.4453H23.7231V35H22.9146V20.4453H22.106V35H21.2974V20.4453H18.063ZM37.6938 35H36.8853V16.4023H45.8359V17.2109H37.6938V18.0195H45.8359V18.8281H37.6938V19.6367H45.8359V20.4453H37.6938V24.4883H45.4541V25.2969H37.6938V26.1055H45.4541V26.9141H37.6938V27.7227H45.4541V28.5312H37.6938V35ZM36.0767 35H35.2681V16.4023H36.0767V35ZM34.4595 35H33.6509V16.4023H34.4595V35ZM32.8423 35H32.0337V16.4023H32.8423V35Z"
-              fill="black" />
-          </svg>
-          <a href="{% url 'index' %}">It-friendly</a>
-        </div>
-        <div class="bottom">
-          <a href="{% url 'courses' %}">Навчання</a>
-          <a href="#" data-modal="faq">Підтримка</a>
-          <a href="{% url 'team'%}">Наша команда</a>
-          <a href="#">itfriendly_corporative.gmail.com</a>
-        </div>
-        <div class="bottom-adaptive">
-          <a href="{% url 'courses'%}">Навчання</a>
-          <a href="#" data-modal="faq">Підтримка</a>
-        </div>
-        <div class="bottom-adaptive">
-          <a href="{% url 'team' %}">Наша команда</a>
-          <a href="#">itfriendly_corporative.gmail.com</a>
-        </div>
-      </div>
-      <p>© 2023 IT-friendly. Всі права захищено.</p>
-    </div>
-  </footer>
-  <section class="thankforbuying  modal__window">
-    <div class="container">
-      <div class="thank-for-buying">
-        <button class="close-button" onclick="closeModal()">X</button>
-        <h2>Дякуємо! </h2>
-        <h2>Вам надано доступ до курсу “Бази даних”. Усі деталі на вашій електронній пошті.</h2>
-        <input type="submit" value="Дякую!" class="choose-course">
-      </div>
-    </div>
-  </section>
-  <section class="courseinfo  modal__window">
-    <div class="container">
-      <div class="course-info">
-        <button class="close-button">X</button>
-        <div class="info">
-          <div class="description">
-            <div>
-              <div class="title">
-                <p>Курс</p>
-                <h3>Бази даних</h3>
-              </div>
-              <p>Рівень: початківці, ті хто хочуть вдосконалити знання</p>
-              <p>Тривалість: 2 місяці</p>
-              <p>Початок: 01.07.2023</p>
+        {% for study in studies %}
+            <div class="course-card">
+                <p>{{ study.type }}</p>
+                <img src="{% static study.image %}" alt="">
+                <h5 class="name">{{ study.title }}</h5>
+                <p>Ціна: {{ study.price }}грн</p>
+                <p>Рівень: {{ study.level }}</p>
+                <button class="choose-course" data-modal="courseinfo">Детальніше</button>
             </div>
-            <div class="image"><img src="{% static 'it_friendly/images/courses/database.svg' %}" alt=""></div>
-          </div>
-
-          <p>Як проходить: ментори проводять лекції та консультації, надають домашнє завдання та перевіряють його
-            виконання.</p>
-          <p>Кількість місць: до 60</p>
-          <p>Необхідне програмне забезпечення: GoogleMeet, Google Classroom, будь-яка СУБД (MySQL...)</p>
-          <p>Ціна: 2400 грн</p>
-
-          <input type="submit" value="Придбати" class="choose-course" data-modal="buycourse">
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="buycourse modal__window">
-    <div class="container">
-      <div class="buy-course">
-        <button class="close-button">X</button>
-            <h2>Оплата курсу</h2>
-            <form action="" method=" post">
-          <label for="cardnumber">Номер карти</label>
-          <input type="text" id="cardnumber" name="cardnumber" required class="form-field"><br>
-          <div class="row">
-            <div class="col">
-              <label for="expire">Термін дії</label>
-              <input type="text" id="expire" name="expire" required class="form-field">
-            </div>
-            <div>
-              <label for="cvv">CVV</label>
-              <input type="text" id="cvv" name="cvv" required class="form-field"><br>
-            </div>
-          </div>
-          <label for="name">Ім'я та прізвище</label>
-          <input type="text" id="cardnumber" name="cardnumber" required class="form-field"><br>
-          <label for="email">Email</label>
-          <input type="text" id="email" name="email" required class="form-field"><br>
-          <input type="submit" value="Оплатити" class="choose-course">
-          </form>
-
-      </div>
-    </div>
-  </section>
-  <section class="register modal__window">
-    <div class="container">
-      <div class="sign-up">
-        <button class="close-button" onclick="closeModal()">X</button>
-        <h2>Реєстрація</h2>
-        <form action="" method="post">
-          <label for="name">Ім'я та прізвище</label>
-          <input type="text" id="name" name="name" required class="form-field"><br>
-
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required class="form-field"><br>
-
-          <label for="password">Пароль</label>
-          <input type="password" id="password" name="password" required class="form-field"><br>
-
-          <label for="confirm-password">Повторити пароль</label>
-          <input type="password" id="confirm-password" name="confirm-password" required class="form-field"><br>
-
-          <input type="submit" value="Зареєструватись" class="choose-course">
-        </form>
-
-      </div>
+        {% endfor %}
     </div>
   </section>
 
-  <section class="login modal__window">
-    <div class="container">
-      <div class="log-in">
-        <button class="close-button" onclick="closeModal()">X</button>
-        <h2>Вхід</h2>
-        <form action="" method="post">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required class="form-field"><br>
-          <label for="password">Пароль</label>
-          <input type="password" id="password" name="password" required class="form-field"><br>
-          <input type="submit" value="Увійти" class="choose-course">
-        </form>
-        <a href="">Забули пароль?</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="register modal__window">
-    <div class="container">
-      <div class="sign-up">
-        <button class="close-button" onclick="closeModal()">X</button>
-        <h2>Реєстрація</h2>
-        <form action="" method="post">
-          <label for="name">Ім'я та прізвище</label>
-          <input type="text" id="name" name="name" required class="form-field"><br>
-
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required class="form-field"><br>
-
-          <label for="password">Пароль</label>
-          <input type="password" id="password" name="password" required class="form-field"><br>
-
-          <label for="confirm-password">Повторити пароль</label>
-          <input type="password" id="confirm-password" name="confirm-password" required class="form-field"><br>
-
-          <input type="submit" value="Зареєструватись" class="choose-course">
-        </form>
-
-      </div>
-    </div>
-  </section>
-  <section class="askquestion modal__window">
-    <div class="container">
-      <div class="ask-question">
-        <button class="close-button">X</button>
-        <h2>Постав запитання та отримуй відповідь зручним для тебе способом!</h2>
-        <form action="" method="post">
-          <label for="name">Ім'я</label>
-          <input type="text" id="name" name="name" required class="form-field"><br>
-          <label for="connection">Тип зв'язку</label>
-          <select name="menu">
-            <option value="option1">Телеграм</option>
-            <option value="option2">Email</option>
-            <option value="option3">За номером телефону</option>
-          </select>
-          <label for="id">Нікнейм, email чи інші ідентифікатори...</label>
-          <input type="text" id="id" name="id" required class="form-field"><br>
-          <label for="id">Твоє запитання</label>
-          <textarea name="question" id="" cols="" rows="5"></textarea>
-          <input type="submit" value="Надіслати питання" class="choose-course">
-        </form>
-      </div>
-    </div>
-  </section>
-  <section class="faq modal__window">
-    <div class="container">
-      <div class="questions">
-        <button class="close-button" onclick="closeModal()">X</button>
-        <h2>Найчастіше запитують:</h2>
-        <h3>1. Чи можу я стати частиною команди IT-friendly?</h3>
-        <p>Так, ми розміщуємо вакансії на DOU, ви можете відправити резюме та пройти співбесіду.</p>
-        <h3>2. Чи ведуться записи вебінарів та чи можна їх переглянути у зручний час?</h3>
-        <p>Записи ведуться, вони доступні користувачам за посиланням з листа, який приходить після реєстрації на
-          вебінар.</p>
-        <h3>3. Чи можу я стати частиною команди IT-friendly?</h3>
-        <p>Так, ми розміщуємо вакансії на DOU, ви можете відправити резюме та пройти співбесіду.</p>
-        <h3>4. Чи можу я відновити акаунт, якщо пароль був втрачений?</h3>
-        <p>Така функція доступна за таким алгоритмом: Вхід -> Забули пароль?.</p>
-      </div>
-    </div>
-  </section>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="{% static 'it_friendly/js/main.js' %}"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-</body>
-
-</html>
+{% endblock %}

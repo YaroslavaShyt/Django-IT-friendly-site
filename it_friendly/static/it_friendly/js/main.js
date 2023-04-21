@@ -1,3 +1,7 @@
+function goBack() {
+    window.location.href = document.referrer;
+}
+
 window.onload = function () {
     // BURGER
     $('header .hamburger').click(()=> {
@@ -43,13 +47,12 @@ window.onload = function () {
     let modal = document.getElementsByClassName(cl)[0];
     $(modal).slideToggle();
 
-    // відміна події кліку на інших елементах модального вікна
     $('.modal__window').not(modal).click(function(event) {
         event.stopPropagation();
     });
 });
 
-// закриття модального вікна при кліку на кнопку "Закрити"
+
 $('.close-button').click(() => {
     $('.modal__window').css('display', 'none');
 });
