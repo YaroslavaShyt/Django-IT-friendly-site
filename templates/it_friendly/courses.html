@@ -80,7 +80,7 @@
     <div class="container">
         {% for study in studies %}
             <div class="course-card">
-                <p>{{ study.type }}</p>
+                <p>{{ study.type.title }}</p>
                 <img src="{% static study.image %}" alt="">
                 <h5 class="name">{{ study.title }}</h5>
                 <p>Ціна: {{ study.price }}грн</p>

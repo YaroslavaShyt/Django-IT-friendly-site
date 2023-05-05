@@ -52,6 +52,12 @@ def index(request):
                                                               'sign_up_form': sign_up_form})
 
 
+def get_faq_data(request):
+    faq = FAQ.objects.all()
+    print(faq)
+    return JsonResponse(faq)
+
+
 def courses(request):
     course_type = request.GET.get('study-type')
     if course_type is not None and 'courses' in course_type:
