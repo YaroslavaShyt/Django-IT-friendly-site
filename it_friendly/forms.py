@@ -45,3 +45,9 @@ class SignInForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-field'}))
 
 
+class PaymentForm(forms.Form):
+    card_number = forms.CharField(label='Номер карти', max_length=16, widget=forms.TextInput(attrs={'class': "form-field"}))
+    expire_date = forms.CharField(label='Термін дії', widget=forms.TextInput(attrs={'class': "form-field"}))
+    cvv = forms.CharField(label='CVV', widget=forms.TextInput(attrs={'class': "form-field"}))
+    full_name = forms.CharField(label="Ім'я та прізвище", widget=forms.TextInput(attrs={'class': "form-field"}))
+    email = forms.EmailField(label='Email', widget=forms.TextInput(attrs={'class': "form-field"}))

@@ -18,18 +18,25 @@
           </select>
           <select name="menu">
             <option value="option1">Напрям</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            {% for i in studying_directions %}
+                 <option value="option3">{{ i.title }}</option>
+              {% endfor %}
           </select>
           <select name="menu">
             <option value="option1">Зайнятість</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <option value="option2">1-2 год на тиждень</option>
+            <option value="option3">2-3 год на тиждень</option>
+              <option value="option3">3-4 год на тиждень</option>
+              <option value="option3">5-8 год на тиждень</option>
+              <option value="option3">Більше 8 год на тиждень</option>
           </select>
           <select name="menu">
             <option value="option1">Вартість</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <option value="option2">Безкоштовно</option>
+            <option value="option3">Менше 200 грн</option>
+              <option value="option3">200-500 грн</option>
+              <option value="option3">500-800 грн</option>
+              <option value="option3">Більше 800 грн</option>
           </select>
         </div>
        <div class="checkboxes">
@@ -80,15 +87,196 @@
     <div class="container">
         {% for study in studies %}
             <div class="course-card">
-                <p>{{ study.type.title }}</p>
+                <p></p>
                 <img src="{% static study.image %}" alt="">
                 <h5 class="name">{{ study.title }}</h5>
                 <p>Ціна: {{ study.price }}грн</p>
                 <p>Рівень: {{ study.level }}</p>
-                <button class="choose-course" data-modal="courseinfo">Детальніше</button>
+                <button class="choose-course" onclick="getDataFromServer({{ study.id }})">Детальніше</button>
             </div>
         {% endfor %}
     </div>
   </section>
+    <script>
+function getDataFromServer(studyId) {
+    const courseDetailsModal = document.getElementById('courseinfo');
+    console.log('in function');
+    $.ajax({
+        url: 'get_study',
+        type: 'GET',
+        dataType: 'json',
+        data: { 'study_id': studyId },
+        success: function (response) {
+            var data = response;
+            console.log(data);
+            var modalContent = $('#info');
+            modalContent.empty();
+            modalContent.append('<div class="description">'
+                + '<div>'
+                + '<div class="title">'
+                + '<p>' + data.type + '</p>'
+                + '<h3>' + data.title + '</h3>'
+                + '</div>'
+                + '<p>Рівень: ' + data.level + '</p>'
+                + '<p>Тривалість: ' + data.time + '</p>'
+                + '<p>Початок: ' + data.beginning + '</p>'
+                + '</div>'
+                + '<div class="image">' + '<img src="/static/' + data.image +'" alt="">'+'</div>'
+                + '</div>'
+                + '<p>Як проходить: ' + data.details + '</p>'
+                + '<p>Кількість місць: ' + data.participants + '</p>'
+                + '<p>Необхідне програмне забезпечення: ' + data.programs_settings + '</p>'
+                + '<p>Ціна: ' + data.price + '</p>'
+                + '<input type="submit" onclick="seePaymentModal(' + data.id + ')" value="Придбати" class="choose-course" >'
+        );
+
+        }
+    });
+    courseDetailsModal.style.display = 'block';
+}
+</script>
+<section id="courseinfo" class="courseinfo  modal__window">
+    <div class="container">
+      <div class="course-info">
+        <button class="close-button">X</button>
+        <div id="info" class="info">
+
+        </div>
+      </div>
+    </div>
+  </section>
+    <section id="buycourse" class="buycourse modal__window">
+    <div class="container">
+      <div class="buy-course">
+        <button class="close-button">X</button>
+            <h2>Оплата курсу</h2>
+           <form action="{% url 'buy_course' %}" method="POST" id="payForm">
+                {% csrf_token %}
+          <label for="cardnumber">Номер карти</label>
+               {{ payment_form.card_number }}<br>
+          <div class="row">
+            <div class="col">
+              <label for="expire">Термін дії</label>
+                {{ payment_form.expire_date }}
+            </div>
+            <div>
+              <label for="cvv">CVV</label>
+                {{ payment_form.cvv }}<br>
+            </div>
+          </div>
+          <label for="name">Ім'я та прізвище</label>
+               {{ payment_form.full_name }}<br>
+          <label for="email">Email</label>
+               {{ payment_form.email }}<br>
+          <input id="confirmPayment" type="submit" value="Оплатити" class="choose-course" onclick="">
+          </form>
+      </div>
+    </div>
+  </section>
+<section id="thankforbuying" class="thankforbuying  modal__window">
+    <div class="container">
+      <div class="thank-for-buying">
+        <button class="close-button" onclick="">X</button>
+        <h2>Дякуємо! </h2>
+        <h2>Вам надано доступ до курсу “Бази даних”. Усі деталі на вашій електронній пошті.</h2>
+        <input id="thanksButton" type="submit" value="Дякую!" class="choose-course">
+      </div>
+    </div>
+  </section >
+    <section id="buyError" class="thankforbuying  modal__window">
+    <div class="container">
+      <div class="thank-for-buying">
+        <button class="close-button" onclick="">X</button>
+        <div id="new_content">
+
+        </div>
+        <input id="thanksButton" type="submit" value="Окей" class="choose-course" onclick="closeBuyErrorModal()">
+      </div>
+    </div>
+  </section >
+<script>
+    const courseInfoModal = document.getElementById('courseinfo');
+    var buyCourseId;
+    const paymentModal = document.getElementById('buycourse');
+    const confirmPaymentButton = document.getElementById('confirmPayment');
+    const thankYouModal = document.getElementById('thankforbuying');
+    const thankYouButton = document.getElementById('thanksButton');
+    const buyErrorModal = document.getElementById('buyError');
+
+        function openPaymentModal() {
+            paymentModal.style.display = 'block';
+        }
+
+        function closePaymentModal() {
+            paymentModal.style.display = 'none';
+        }
+
+        function closeCourseInfoModal(){
+            courseInfoModal.style.display = 'none';
+        }
+
+        function openThankYouModal() {
+            thankYouModal.style.display = 'block';
+        }
+
+        function closeThankYouModal() {
+            thankYouModal.style.display = 'none';
+        }
+
+        function seePaymentModal(courseId){
+            buyCourseId = courseId;
+             closeCourseInfoModal();
+             openPaymentModal();
+        }
+
+        function openBuyErrorModal(){
+            buyErrorModal.style.display = 'block';
+        }
+
+        function closeBuyErrorModal(){
+            buyErrorModal.style.display = 'none';
+        }
+
+        confirmPaymentButton.addEventListener('click', function() {
+             closePaymentModal();
+            // openThankYouModal();
+        });
+
+        thankYouButton.addEventListener('click', function() {
+             closeThankYouModal();
+        });
+
+
+        $('#payForm').submit(function(event){
+             console.log('in function', buyCourseId)
+            event.preventDefault();
+            let formData = $(this).serialize();
+            formData += '&courseId=' + buyCourseId;
+            console.log('in function')
+            $.ajax({
+                type: 'POST',
+                url: 'buy_course',
+                data: formData,
+                dataType: 'json'
+            })
+                .done(function (response){
+                    if (response.success === true){
+                        console.log('success')
+                        openThankYouModal();
+                    }else {
+                        openPaymentModal();
+                        openBuyErrorModal();
+                        var modalContent = $('#new_content');
+                        modalContent.empty();
+                        console.log(response.errors)
+                        for (var i = 0; i < response.errors.length; i++) {
+                            modalContent.append('<h2 id="faq_q">' + response.errors[i] + '</h2>');
+                        }
+                    }
+                });
+            });
+
+</script>
+
 
 {% endblock %}

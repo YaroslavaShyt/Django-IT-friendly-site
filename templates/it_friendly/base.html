@@ -14,9 +14,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <script src="{%  static 'it_friendly/js/main.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>{% block title %}IT-friendly{% endblock %}</title>
 </head>
 <body>
+
 <header>
 {% block header %}
         <div class="container">
@@ -34,13 +36,12 @@
           <li><a href="{%  url 'courses' %}">Навчання</a></li>
             {% if not request.user.is_anonymous %}
                 <li><a href="{% url 'sign_out' %}">Вихід</a></li>
-                <li><a href="#">{{ request.user.username }}</a></li>
+                <li><a href="#" data-modal="usercourses" onclick="openAccountModal()">{{ request.user.username }}</a></li>
             {% endif %}
             {% if request.user.is_anonymous %}
                  <li><a href="#" data-modal="login">Вхід</a></li>
                  <li><a href="#" data-modal="register">Реєстрація</a></li>
             {% endif %}
-
         </ul>
       </nav>
       <div class="hamburger">
@@ -50,9 +51,16 @@
       </div>
     </div>
 {% endblock %}
+
 </header>
+{% for msg in messages %}
+    <div class="error">
+      {{ msg }}
+    </div>
+{% endfor %}
 <main>
     {% block main %}
+
     {% endblock %}
 </main>
 <footer>
@@ -87,6 +95,53 @@
     </div>
     {% endblock %}
 </footer>
+
+
+<section class="usercourses modal__window">
+    <div class="container">
+        <div class="user-courses">
+           <button class="close-button">X</button>
+           <div class="account">
+             <div><img src="{% static 'it_friendly/images/account.jpg' %}" alt=""></div>
+             <div>
+                <h3>{{ request.user }}</h3>
+                <a href="">Видалити акаунт</a></div>
+            </div>
+            <h3>Мої курси</h3>
+            <div class="courses">
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function openAccountModal() {
+    fetch('/get_studying_names/')
+        .then(response => response.json())
+        .then(data => {
+            const courseListElement = document.getElementById('courses');
+
+            // Очистити попередні дані, якщо вони були
+            while (courseListElement.firstChild) {
+                courseListElement.removeChild(courseListElement.firstChild);
+            }
+
+            // Додати назви курсів до списку
+            data.forEach(courseName => {
+                const listItem = document.createElement('li');
+                listItem.textContent = courseName;
+                courseListElement.appendChild(listItem);
+            });
+
+            // Відкрити модальне вікно з отриманими назвами курсів
+            // Використайте вашу логіку для відображення модального вікна
+        })
+        .catch(error => {
+            console.error('Помилка при отриманні назв курсів:', error);
+        });
+}
+</script>
+
  <section class="login modal__window">
       <div class="container">
       <div class="log-in">
@@ -107,19 +162,22 @@
       </div>
     </div>
 </section>
+<!--
 <script>
     $(document).ready(function(){
         $('#signin').submit(function(event){
             event.preventDefault();
+            console.log('in js sign in');
             const formData = $(this).serialize();
             $.ajax({
                 type: 'POST',
-                url: '{% url 'sign_in' %}',
+                url: 'sign_in',
                 data: formData,
             });
             });
         });
 </script>
+-->
 <section class="register modal__window">
     <div class="container">
       <div class="sign-up">
@@ -144,6 +202,7 @@
       </div>
     </div>
   </section>
+<!--
 <script>
     $(document).ready(function(){
         $('#signup').submit(function(event){
@@ -151,13 +210,13 @@
             const formData = $(this).serialize();
             $.ajax({
                 type: 'POST',
-                url: '{% url 'sign_up' %}',
+                url: 'sign_up',
                 data: formData,
             });
             });
         });
 </script>
-
+-->
   <section class="askquestion modal__window">
     <div class="container">
       <div class="ask-question">
@@ -182,86 +241,39 @@
     </div>
   </section>
 
-
-  <section class="faq modal__window">
+  <section class="faq modal__window" id="faq_window">
     <div class="container">
       <div class="questions">
         <button class="close-button">X</button>
         <h2>Найчастіше запитують:</h2>
           <div id="questions">
-              <h3 id="faq_q"></h3>
-                <p id="faq_a"></p>
+
           </div>
 
       </div>
     </div>
   </section>
-  <section class="thankforbuying  modal__window">
-    <div class="container">
-      <div class="thank-for-buying">
-        <button class="close-button" onclick="closeModal()">X</button>
-        <h2>Дякуємо! </h2>
-        <h2>Вам надано доступ до курсу “Бази даних”. Усі деталі на вашій електронній пошті.</h2>
-        <input type="submit" value="Дякую!" class="choose-course">
-      </div>
-    </div>
-  </section>
-  <section class="courseinfo  modal__window">
-    <div class="container">
-      <div class="course-info">
-        <button class="close-button">X</button>
-        <div class="info">
-          <div class="description">
-            <div>
-              <div class="title">
-                <p>Курс</p>
-                <h3>Бази даних</h3>
-              </div>
-              <p>Рівень: початківці, ті хто хочуть вдосконалити знання</p>
-              <p>Тривалість: 2 місяці</p>
-              <p>Початок: 01.07.2023</p>
-            </div>
-            <div class="image"><img src="{% static 'it_friendly/images/courses/database.svg' %}" alt=""></div>
-          </div>
-          <p>Як проходить: ментори проводять лекції та консультації, надають домашнє завдання та перевіряють його
-            виконання.</p>
-          <p>Кількість місць: до 60</p>
-          <p>Необхідне програмне забезпечення: GoogleMeet, Google Classroom, будь-яка СУБД (MySQL...)</p>
-          <p>Ціна: 2400 грн</p>
-          <input type="submit" value="Придбати" class="choose-course" data-modal="buycourse">
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="buycourse modal__window">
-    <div class="container">
-      <div class="buy-course">
-        <button class="close-button">X</button>
-            <h2>Оплата курсу</h2>
-            <form action="" method="">
-                {% csrf_token %}
-          <label for="cardnumber">Номер карти</label>
-          <input type="text" id="cardnumber" name="cardnumber" required class="form-field"><br>
-          <div class="row">
-            <div class="col">
-              <label for="expire">Термін дії</label>
-              <input type="text" id="expire" name="expire" required class="form-field">
-            </div>
-            <div>
-              <label for="cvv">CVV</label>
-              <input type="text" id="cvv" name="cvv" required class="form-field"><br>
-            </div>
-          </div>
-          <label for="name">Ім'я та прізвище</label>
-          <input type="text" id="cardnumber" name="cardnumber" required class="form-field"><br>
-          <label for="email">Email</label>
-          <input type="text" id="email" name="email" required class="form-field"><br>
-          <input type="submit" value="Оплатити" class="choose-course" data-modal="thankforbuying">
-          </form>
+<script>
+    function getFAQ(){
+    const faqWindow = document.getElementById('faq_window')
+        faqWindow.style.display = 'block';
+       $.ajax({
+           url: 'get_faq_data',
+           type: 'GET',
+           dataType: 'json',
+           success: function (response){
+               var data = response.data;
+               var modalContent = $('#questions');
+               modalContent.empty();
+               for (var i = 0; i < data.length; i++){
+                   modalContent.append('<h3 id="faq_q">' + data[i].question + '</h3>');
+                   modalContent.append('<p id="faq_a">' + data[i].answer + '</p>');
+               }
+           }
+    })}
 
-      </div>
-    </div>
-  </section>
+</script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src={% static 'it_friendly/js/main.js' %}></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

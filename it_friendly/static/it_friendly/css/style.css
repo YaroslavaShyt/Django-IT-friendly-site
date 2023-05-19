@@ -7,8 +7,21 @@ html {
 }
 
 body {
-  margin: 0;
-  margin-top: 90px;
+  margin: 90px 0 0;
+}
+
+.error{
+  background-color: darkgoldenrod;
+  display: flex;
+}
+
+.error li{
+  color: white;
+}
+.error button{
+  margin-left: 40px;
+  background-color: transparent;
+  border: 0 transparent;
 }
 
 header {
@@ -1873,4 +1886,8 @@ footer .footer-content .bottom-adaptive {
   .courseinfo .container .course-info .image {
     display: none;
   }
+}
+
+.course-info .text{
+  display: inline-block;
 }

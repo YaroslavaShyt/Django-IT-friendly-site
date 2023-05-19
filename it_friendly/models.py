@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class StudyingStudent(models.Model):
+    username_student = models.CharField(max_length=70)
+    id_course = models.CharField(max_length=100)
+
+
 class StudyingType(models.Model):
     title = models.CharField(max_length=50)
 
@@ -31,9 +36,8 @@ class Studying(models.Model):
     details = models.CharField(max_length=300)
     participants = models.CharField(max_length=50)
     programs_settings = models.CharField(max_length=500)
-    beginning = models.DateTimeField()
+    beginning = models.CharField(max_length=8)
     studying_direction = models.ForeignKey(StudyingDirection, on_delete=models.CASCADE, to_field='id')
     teacher = models.ManyToManyField(Worker)
     students = models.ManyToManyField(User)
-
 
