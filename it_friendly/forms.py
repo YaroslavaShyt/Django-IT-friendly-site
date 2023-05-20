@@ -46,8 +46,23 @@ class SignInForm(AuthenticationForm):
 
 
 class PaymentForm(forms.Form):
-    card_number = forms.CharField(label='Номер карти', max_length=16, widget=forms.TextInput(attrs={'class': "form-field"}))
-    expire_date = forms.CharField(label='Термін дії', widget=forms.TextInput(attrs={'class': "form-field"}))
-    cvv = forms.CharField(label='CVV', widget=forms.TextInput(attrs={'class': "form-field"}))
-    full_name = forms.CharField(label="Ім'я та прізвище", widget=forms.TextInput(attrs={'class': "form-field"}))
+    card_number = forms.CharField(label='Номер карти', widget=forms.TextInput(attrs={'class': "form-field", 'data-inputmask': '{"mask": "9999 9999 9999 9999"}'}))
+    expire_date = forms.CharField(label='Термін дії', widget=forms.TextInput(attrs={'class': "form-field", 'data-inputmask': '{"mask": "99/99"}'}))
+    cvv = forms.CharField(label='CVV', widget=forms.TextInput(attrs={'class': "form-field", 'data-inputmask': '{"mask": "999"}'}))
+    full_name = forms.CharField(label="Ім'я та прізвище", widget=forms.TextInput(attrs={'class': "form-field", 'data-inputmask': '{"mask": "[A-Za-zÀ-ÿ\\s-\']+"}'}))
     email = forms.EmailField(label='Email', widget=forms.TextInput(attrs={'class': "form-field"}))
+
+
+class QuestionForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-field', 'id': "name", 'name': "name"}))
+    contact_method = forms.ChoiceField(
+        choices=[
+            ('telegram', 'Телеграм'),
+            ('phone', 'Номер телефону'),
+            ('email', 'Email')
+        ], )
+    contact_info = forms.CharField(widget=forms.TextInput(attrs={'id': "id",
+                                                                 'name': "id",
+                                                                 'class': "form-field"
+                                                                 }))
+    question = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}))

@@ -297,7 +297,9 @@
       <div class="change-future">
         <div class="text">
           <p>Змінюй своє майбутнє сьогодні. Обирай <b>IT-friendly</b></p>
-          <button class="choose-course" onclick="window.location.href = 'it_friendly/courses.html';">Обрати курс</button>
+         <form action="{% url 'courses' %}" method="get">
+            <button class="choose-course" >Обрати курс</button>
+          </form>
         </div>
         <div class="image">
           <img src="{%  static 'it_friendly/images/colleagues-giving-fist-bump.png' %}" alt="">

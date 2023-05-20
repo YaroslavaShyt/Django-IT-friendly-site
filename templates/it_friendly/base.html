@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <script src="{%  static 'it_friendly/js/main.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <title>{% block title %}IT-friendly{% endblock %}</title>
 </head>
 <body>
@@ -36,7 +37,7 @@
           <li><a href="{%  url 'courses' %}">Навчання</a></li>
             {% if not request.user.is_anonymous %}
                 <li><a href="{% url 'sign_out' %}">Вихід</a></li>
-                <li><a href="#" data-modal="usercourses" onclick="openAccountModal()">{{ request.user.username }}</a></li>
+                <li><a href="#" onclick="openAccountModal()">{{ request.user.username }}</a></li>
             {% endif %}
             {% if request.user.is_anonymous %}
                  <li><a href="#" data-modal="login">Вхід</a></li>
@@ -67,6 +68,7 @@
     {% block footer %}
         <div class="container">
       <div class="footer-content">
+
         <div class="logo">
           <svg width="40" height="40" viewBox="0 0 55 52" fill="none" xmlns="http://www.w3.org/2000/svg"
             class="logo-icon">
@@ -74,30 +76,38 @@
             <path d="M15.48 16.4023H16.2886V35H15.48V16.4023ZM13.8628 16.4023H14.6714V35H13.8628V16.4023ZM12.2456 16.4023H13.0542V35H12.2456V16.4023ZM10.6284 16.4023H11.437V35H10.6284V16.4023ZM18.063 17.2109V16.4023H30.1919V17.2109H18.063ZM18.063 18.8281V18.0195H30.1919V18.8281H18.063ZM18.063 20.4453V19.6367H30.1919V20.4453H26.9575V35H26.1489V20.4453H25.3403V35H24.5317V20.4453H23.7231V35H22.9146V20.4453H22.106V35H21.2974V20.4453H18.063ZM37.6938 35H36.8853V16.4023H45.8359V17.2109H37.6938V18.0195H45.8359V18.8281H37.6938V19.6367H45.8359V20.4453H37.6938V24.4883H45.4541V25.2969H37.6938V26.1055H45.4541V26.9141H37.6938V27.7227H45.4541V28.5312H37.6938V35ZM36.0767 35H35.2681V16.4023H36.0767V35ZM34.4595 35H33.6509V16.4023H34.4595V35ZM32.8423 35H32.0337V16.4023H32.8423V35Z"
               fill="black"></path>
           </svg>
-          <a href="index.html">It-friendly</a>
+          <a href="{% url 'index' %}">It-friendly</a>
+        <p>Простір для навчання в IT</p>
         </div>
+
         <div class="bottom">
-          <a href="#">Навчання</a>
-          <a href="#">Підтримка</a>
-          <a href="team.html">Наша команда</a>
-          <a href="#">itfriendly_corporative.gmail.com</a>
+          <a href="{% url 'courses' %}">Навчання</a>
+          <a href="#" onclick="openAskQuestion()" >Підтримка</a>
+          <a href="{% url 'team' %}">Наша команда</a>
+          <a href="#" onclick="copyEmail()" title="Натисніть, щоб скопіювати email">itfriendly_corporative.gmail.com</a>
         </div>
         <div class="bottom-adaptive">
-          <a href="#">Навчання</a>
-          <a href="#">Підтримка</a>
+          <a href="{% url 'courses' %}">Навчання</a>
+          <a onclick="openAskQuestion()">Підтримка</a>
         </div>
         <div class="bottom-adaptive">
-          <a href="team.html">Наша команда</a>
-          <a href="#">itfriendly_corporative.gmail.com</a>
+          <a href="{% url 'team' %}">Наша команда</a>
+          <a href="#" onclick="copyEmail()" title="Натисніть, щоб скопіювати email">itfriendly_corporative.gmail.com</a>
         </div>
       </div>
       <p>© 2023 IT-friendly. Всі права захищено.</p>
     </div>
     {% endblock %}
 </footer>
+<script>
+function copyEmail() {
+    event.preventDefault();
+  var email = "itfriendly_corporative.gmail.com";
+  navigator.clipboard.writeText(email);
+}
+</script>
 
-
-<section class="usercourses modal__window">
+<section id="account" class="usercourses modal__window">
     <div class="container">
         <div class="user-courses">
            <button class="close-button">X</button>
@@ -108,38 +118,36 @@
                 <a href="">Видалити акаунт</a></div>
             </div>
             <h3>Мої курси</h3>
-            <div class="courses">
+            <div id="courses">
 
             </div>
         </div>
     </div>
 </section>
 <script>
-    function openAccountModal() {
-    fetch('/get_studying_names/')
-        .then(response => response.json())
-        .then(data => {
-            const courseListElement = document.getElementById('courses');
+    function openAccountModal(){
+        event.preventDefault();
+    const accountWindow = document.getElementById('account');
+    const currentPath = window.location.href;
+    console.log(currentPath + 'get_user_studies')
+       $.ajax({
+           url: currentPath + 'get_user_studies',
+           type: 'GET',
+           dataType: 'json',
+           success: function (response){
+               var data = response.data;
+               console.log(data)
+               var modalContent = $('#courses');
+               modalContent.empty();
+               for (var i = 0; i < data.length; i++){
+                   modalContent.append('<p id="faq_a">' + data[i] + '</p>');
+               }
+               accountWindow.style.display = 'block';
+           }
+    })
 
-            // Очистити попередні дані, якщо вони були
-            while (courseListElement.firstChild) {
-                courseListElement.removeChild(courseListElement.firstChild);
-            }
+    }
 
-            // Додати назви курсів до списку
-            data.forEach(courseName => {
-                const listItem = document.createElement('li');
-                listItem.textContent = courseName;
-                courseListElement.appendChild(listItem);
-            });
-
-            // Відкрити модальне вікно з отриманими назвами курсів
-            // Використайте вашу логіку для відображення модального вікна
-        })
-        .catch(error => {
-            console.error('Помилка при отриманні назв курсів:', error);
-        });
-}
 </script>
 
  <section class="login modal__window">
@@ -217,30 +225,114 @@
         });
 </script>
 -->
-  <section class="askquestion modal__window">
+  <section id="askQuestion" class="askquestion modal__window">
     <div class="container">
       <div class="ask-question">
         <button class="close-button">X</button>
         <h2>Постав запитання та отримуй відповідь зручним для тебе способом!</h2>
-        <form action="" method="post">
+        <form id="askQuestionForm" action="{% url 'ask_question' %}" method="post">
+            {% csrf_token %}
           <label for="name">Ім'я</label>
-          <input type="text" id="name" name="name" required class="form-field"><br>
+            {{ question_form.name }}
+       <!--   <input type="text" id="name" name="name" required class="form-field">--><br>
           <label for="connection">Тип зв'язку</label>
-          <select name="menu">
+            {{ question_form.contact_method }}
+        <!--  <select name="menu">
             <option value="option1">Телеграм</option>
             <option value="option2">Email</option>
             <option value="option3">За номером телефону</option>
-          </select>
+          </select>-->
           <label for="id">Нікнейм, email чи інші ідентифікатори...</label>
-          <input type="text" id="id" name="id" required class="form-field"><br>
+            {{ question_form.contact_info }}
+        <!--  <input type="text" id="id" name="id" required class="form-field">--><br>
           <label for="id">Твоє запитання</label>
-          <textarea name="question" id="" cols="" rows="5"></textarea>
+            {{ question_form.question }}
+       <!--   <textarea name="question" id="" cols="" rows="5"></textarea>-->
           <input type="submit" value="Надіслати питання" class="choose-course">
         </form>
       </div>
     </div>
   </section>
+<section id="thankQuestion" class="thankforbuying  modal__window">
+    <div class="container">
+      <div class="thank-for-buying">
+        <button class="close-button" onclick="">X</button>
+        <h2>Дякуємо за запитання! </h2>
+        <h2>Наші співробітники обов'язково згодом зв'яжуться з Вами!</h2>
+        <input id="thanksButton" type="submit" value="Дякую!" class="choose-course">
+      </div>
+    </div>
+  </section >
+    <section id="questionError" class="thankforbuying  modal__window">
+    <div class="container">
+      <div class="thank-for-buying">
+        <button class="close-button" onclick="">X</button>
+        <div id="new_content">
 
+        </div>
+        <input id="thanksButton" type="submit" value="Окей" class="choose-course" onclick="closeBuyErrorModal()">
+      </div>
+    </div>
+  </section >
+<script>
+    const askQuestionModal = document.getElementById('askQuestion');
+    const thankQuestionModal = document.getElementById('thankQuestion');
+    const questionErrorModal = document.getElementById('questionError');
+
+    function closeThankQuestionModal(){
+        thankQuestionModal.style.display = 'none';
+    }
+
+    function closeQuestionErrorModal(){
+        questionErrorModal.style.display = 'none';
+    }
+
+    function openAskQuestion(){
+        event.preventDefault();
+        askQuestionModal.style.display = 'block';
+    }
+
+    function closeAskQuestion() {
+        askQuestionModal.style.display = 'none';
+    }
+
+    function openThankQuestionModal() {
+        thankQuestionModal.style.display = 'block';
+    }
+
+    function openQuestionErrorModal(){
+        questionErrorModal.style.display = 'block';
+    }
+
+    $('#askQuestionForm').submit(function(event){
+         console.log('in function question form')
+        event.preventDefault();
+        let formData = $(this).serialize();
+        console.log('in function before ajax')
+        $.ajax({
+            type: 'POST',
+            url: 'ask_question',
+            data: formData,
+            dataType: 'json'
+        })
+            .done(function (response){
+                if (response.success === true){
+                    console.log('success')
+                    closeAskQuestion();
+                    openThankQuestionModal();
+                }else {
+                    openQuestionErrorModal();
+                    var modalContent = $('#new_content');
+                    modalContent.empty();
+                    console.log(response.errors)
+                    for (var i = 0; i < response.errors.length; i++) {
+                        modalContent.append('<h2 id="faq_q">' + response.errors[i] + '</h2>');
+                    }
+                }
+            });
+        });
+
+</script>
   <section class="faq modal__window" id="faq_window">
     <div class="container">
       <div class="questions">
@@ -256,6 +348,7 @@
 <script>
     function getFAQ(){
     const faqWindow = document.getElementById('faq_window')
+        event.preventDefault();
         faqWindow.style.display = 'block';
        $.ajax({
            url: 'get_faq_data',
@@ -277,6 +370,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src={% static 'it_friendly/js/main.js' %}></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </body>
 </html>

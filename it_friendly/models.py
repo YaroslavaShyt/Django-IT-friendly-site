@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import UniqueConstraint
 
 
-class StudyingStudent(models.Model):
-    username_student = models.CharField(max_length=70)
-    id_course = models.CharField(max_length=100)
 
 
 class StudyingType(models.Model):
@@ -41,3 +39,12 @@ class Studying(models.Model):
     teacher = models.ManyToManyField(Worker)
     students = models.ManyToManyField(User)
 
+
+class StudyingStudent(models.Model):
+    username_student = models.ForeignKey(User, on_delete=models.CASCADE, to_field='username')
+    id_course = models.ForeignKey(Studying, on_delete=models.CASCADE, to_field='id')
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['username_student', 'id_course'], name='unique_study_student')
+        ]

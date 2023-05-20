@@ -100,7 +100,7 @@
     <script>
 function getDataFromServer(studyId) {
     const courseDetailsModal = document.getElementById('courseinfo');
-    console.log('in function');
+    event.preventDefault();
     $.ajax({
         url: 'get_study',
         type: 'GET',
@@ -126,7 +126,7 @@ function getDataFromServer(studyId) {
                 + '<p>Як проходить: ' + data.details + '</p>'
                 + '<p>Кількість місць: ' + data.participants + '</p>'
                 + '<p>Необхідне програмне забезпечення: ' + data.programs_settings + '</p>'
-                + '<p>Ціна: ' + data.price + '</p>'
+                + '<p>Ціна: ' + data.price + 'грн</p>'
                 + '<input type="submit" onclick="seePaymentModal(' + data.id + ')" value="Придбати" class="choose-course" >'
         );
 
@@ -178,7 +178,7 @@ function getDataFromServer(studyId) {
       <div class="thank-for-buying">
         <button class="close-button" onclick="">X</button>
         <h2>Дякуємо! </h2>
-        <h2>Вам надано доступ до курсу “Бази даних”. Усі деталі на вашій електронній пошті.</h2>
+        <h2>Вам надано доступ до навчання! Усі деталі на вашій електронній пошті.</h2>
         <input id="thanksButton" type="submit" value="Дякую!" class="choose-course">
       </div>
     </div>
@@ -195,6 +195,10 @@ function getDataFromServer(studyId) {
     </div>
   </section >
 <script>
+    $(document).ready(function() {
+    $('[data-inputmask]').inputmask();
+});
+
     const courseInfoModal = document.getElementById('courseinfo');
     var buyCourseId;
     const paymentModal = document.getElementById('buycourse');
@@ -204,6 +208,7 @@ function getDataFromServer(studyId) {
     const buyErrorModal = document.getElementById('buyError');
 
         function openPaymentModal() {
+            event.preventDefault();
             paymentModal.style.display = 'block';
         }
 
@@ -216,6 +221,7 @@ function getDataFromServer(studyId) {
         }
 
         function openThankYouModal() {
+            event.preventDefault();
             thankYouModal.style.display = 'block';
         }
 
@@ -224,12 +230,14 @@ function getDataFromServer(studyId) {
         }
 
         function seePaymentModal(courseId){
+            event.preventDefault();
             buyCourseId = courseId;
              closeCourseInfoModal();
              openPaymentModal();
         }
 
         function openBuyErrorModal(){
+            event.preventDefault();
             buyErrorModal.style.display = 'block';
         }
 

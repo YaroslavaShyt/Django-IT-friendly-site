@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.db import models
 from django.utils.encoding import smart_str
-from .forms import SignUpForm, AuthenticationForm, SignInForm, PaymentForm
+from .forms import SignUpForm, AuthenticationForm, SignInForm, PaymentForm, QuestionForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from .models import Studying, StudyingDirection, FAQ, StudyingType, User
+from .models import Studying, StudyingDirection, FAQ, StudyingType, User, StudyingStudent
 from django.contrib import messages
 from django.core import serializers
 from datetime import datetime
+from django.core.mail import send_mail
+from .letter_template import get_letter_template, get_ask_question_letter_template
 
 
 def sign_in(request):
@@ -19,7 +21,6 @@ def sign_in(request):
             login(request, user)
             return redirect('courses')
         else:
-            print(form.errors)
             messages.error(request, form.errors.get('__all__'))
     return redirect('index')
 
@@ -55,10 +56,13 @@ def sign_out(request):
 
 
 def index(request):
+    question_form = QuestionForm()
     sign_in_form = SignInForm()
     sign_up_form = SignUpForm()
     return render(request, 'it_friendly/index.html', context={'sign_in_form': sign_in_form,
-                                                              'sign_up_form': sign_up_form})
+                                                              'sign_up_form': sign_up_form,
+                                                              'question_form': question_form
+                                                              })
 
 
 def get_faq_data(request):
@@ -79,50 +83,41 @@ def get_studying_names(request):
 
 
 def courses(request):
-    print('in courses start')
+    get_studying_student_data('oleg')
     sign_in_form = SignInForm()
     sign_up_form = SignUpForm()
     payment_form = PaymentForm()
+    question_form = QuestionForm()
     studying_directions = StudyingDirection.objects.all()
     course_type = request.GET.get('study-type')
     if course_type is not None and 'courses' in course_type:
         studies = Studying.objects.filter(type='Курс')
     else:
         studies = Studying.objects.all()
-    print('in courses before render')
     return render(request, 'it_friendly/courses.html',
                   context={'studies': studies,
                            'studying_directions': studying_directions,
                            'sign_in_form': sign_in_form,
                            'sign_up_form': sign_up_form,
-                           'payment_form': payment_form
+                           'payment_form': payment_form,
+                           'question_form': question_form
                            })
 
 
 def get_study(request):
     study_id = request.GET.get('study_id')
-    study = Studying.objects.get(id=study_id)
-    study_data = {
-        'id': study.id,
-        'type': study.type.title,
-        'title': study.title,
-        'price': study.price,
-        'image': study.image,
-        'level': study.level,
-        'details': study.details,
-        'participants': study.participants,
-        'programs_settings': study.programs_settings,
-        'beginning': study.beginning,
-        'time': study.time
-    }
+    study_data = fetch_course_data(study_id)
     return JsonResponse(study_data)
 
 
 def team(request):
+    question_form = QuestionForm()
     sign_in_form = SignInForm()
     sign_up_form = SignUpForm()
     context = {'sign_in_form': sign_in_form,
-               'sign_up_form': sign_up_form}
+               'sign_up_form': sign_up_form,
+               'question_form':  question_form
+               }
     return render(request, 'it_friendly/team.html', context=context)
 
 
@@ -148,16 +143,76 @@ def buy_course(request):
             if request.POST.get('card_number') != '0000000000000000' \
                     and len(request.POST.get('card_number')) == 16:
                 print('inner check')
-                data['success'] = True
-         #       try:
-                payment = StudyingToStudent(username_student=request.user.username, id_course=request.POST.get('courseId'))
-                payment.save()
-         #       except:
-         #           data['errors'] = ['Не вдалось додати користувача.']
-         #           return JsonResponse(data)
+                try:
+                    payment = StudyingStudent(id_course=request.POST.get('courseId'), username_student=request.user.username)
+                    payment.save()
+                    course_data = fetch_course_data(request.POST.get('courseId'))
+                    letter_content = get_letter_template(course_data=course_data)
+                    from_email = 'slavka112015@ukr.net'
+                    recipient_list = ['yaroslavashyt@gmail.com']
+                    send_mail(letter_content['subject'], letter_content['message'], from_email, recipient_list)
+                    data['success'] = True
+                except:
+                    data['errors'] = ['Здається, ви вже зареєстровані. '
+                                      'Перевірте особистий кабінет. '
+                                      'Якщо ні - зверніться за допомогою у підтримку.']
+                return JsonResponse(data)
             else:
                 print('inner check else')
                 data['errors'] = ['Номер карти має містити 16 цифр.'] if len(request.POST.get('card_number')) != 16 else  ['Карта не доступна.']
+        else:
+            print('invalid')
+            data['errors'] = list(form.errors.values())
+    return JsonResponse(data)
+
+
+def fetch_course_data(study_id):
+    study = Studying.objects.get(id=study_id)
+    study_data = {
+        'id': study.id,
+        'type': study.type.title,
+        'title': study.title,
+        'price': study.price,
+        'image': study.image,
+        'level': study.level,
+        'details': study.details,
+        'participants': study.participants,
+        'programs_settings': study.programs_settings,
+        'beginning': study.beginning,
+        'time': study.time
+    }
+    return study_data
+
+
+def get_studying_student_data(student_username):
+    data = StudyingStudent.objects.filter(username_student=student_username)
+    result = [course.id_course.title for course in data]
+    return {'data': result}
+
+
+def get_user_studies(request):
+    user_studies = get_studying_student_data(request.user.username)
+    return JsonResponse(user_studies)
+
+
+def ask_question(request):
+    data = {'success': False}
+    if request.method == 'POST':
+        print('in form post')
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+           # try:
+            letter_content = get_ask_question_letter_template(request.POST)
+            from_email = 'slavka112015@ukr.net'
+            recipient_list = ['yaroslavashyt@gmail.com']
+            send_mail(letter_content['subject'], letter_content['message'], from_email, recipient_list)
+            data['success'] = True
+           # except:
+          #  data['errors'] = ['Не вдалося поставити питання. '
+           #                   'Схоже проблема на нашому боці! '
+           #                   'Ми працюємо над її усуненням. ']
+        #return JsonResponse(data)
+
         else:
             print('invalid')
             data['errors'] = list(form.errors.values())
