@@ -3,6 +3,17 @@ from django.contrib.auth.models import User
 from django.db.models import UniqueConstraint
 
 
+class CourseLevel(models.Model):
+    level = models.CharField(max_length=50)
+
+
+class CourseTimingRange(models.Model):
+    timing_range = models.CharField(max_length=20)
+
+
+class CoursePriceRange(models.Model):
+    price_range = models.CharField(max_length=20)
+
 
 
 class StudyingType(models.Model):
@@ -28,9 +39,15 @@ class Studying(models.Model):
     type = models.ForeignKey(StudyingType, on_delete=models.CASCADE, to_field='id')
     title = models.CharField(max_length=50)
     image = models.CharField(max_length=300)
+
     price = models.IntegerField()
-    level = models.CharField(max_length=70)
+    price_range = models.ForeignKey(CoursePriceRange, on_delete=models.CASCADE, to_field='id')
+
+    level = models.ForeignKey(CourseLevel, on_delete=models.CASCADE, to_field='id')
+
     time = models.CharField(max_length=30)
+    timing_range = models.ForeignKey(CourseTimingRange, on_delete=models.CASCADE, to_field='id')
+
     details = models.CharField(max_length=300)
     participants = models.CharField(max_length=50)
     programs_settings = models.CharField(max_length=500)
@@ -48,3 +65,7 @@ class StudyingStudent(models.Model):
         constraints = [
             UniqueConstraint(fields=['username_student', 'id_course'], name='unique_study_student')
         ]
+
+
+
+

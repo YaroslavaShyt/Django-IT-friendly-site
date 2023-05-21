@@ -1878,10 +1878,15 @@ footer .footer-content .bottom-adaptive {
   display: block;
   margin: 0 auto;
 }
-@media (max-width: 931px) {
+.courseinfo .container .course-info .image img{
+    height: 200px;
+    width: 200px;
+    margin-left: 20px;
+  }
+@media (max-width: 910px) {
   .courseinfo .container .course-info {
-    width: 100%;
     height: 100%;
+    width: 100%;
     border-radius: 0;
     padding-top: 100px;
   }
@@ -1894,4 +1899,9 @@ footer .footer-content .bottom-adaptive {
 
 .course-info .text{
   display: inline-block;
+}
+@media (max-width: 910px){
+  body .container {
+    width: 100%;
+  }
 }

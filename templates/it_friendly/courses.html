@@ -9,76 +9,93 @@
       <h1>IT-friendly education</h1>
       <div class="user-choose">
         <div class="filters">
-          <select name="menu">
-            <option value="option1">Рівень</option>
-            <option value="option2">Beginner</option>
-            <option value="option3">Trainee</option>
-              <option value="option3">Middle</option>
-              <option value="option3">Senior</option>
-          </select>
-          <select name="menu">
-            <option value="option1">Напрям</option>
-            {% for i in studying_directions %}
-                 <option value="option3">{{ i.title }}</option>
+          <select id="levelFilter" name="menu">
+            <option value="">Рівень</option>
+            {% for i in levels %}
+                 <option value="{{ i.id }}" {% if i.id == selected_level %}selected{% endif %}>{{ i.level }}</option>
               {% endfor %}
           </select>
-          <select name="menu">
-            <option value="option1">Зайнятість</option>
-            <option value="option2">1-2 год на тиждень</option>
-            <option value="option3">2-3 год на тиждень</option>
-              <option value="option3">3-4 год на тиждень</option>
-              <option value="option3">5-8 год на тиждень</option>
-              <option value="option3">Більше 8 год на тиждень</option>
+          <select id="directionFilter" name="menu">
+            <option value="">Напрям</option>
+            {% for i in studying_directions %}
+                 <option value="{{ i.id }}" {% if i.id == selected_direction %}selected{% endif %}>{{ i.title }}</option>
+              {% endfor %}
           </select>
-          <select name="menu">
-            <option value="option1">Вартість</option>
-            <option value="option2">Безкоштовно</option>
-            <option value="option3">Менше 200 грн</option>
-              <option value="option3">200-500 грн</option>
-              <option value="option3">500-800 грн</option>
-              <option value="option3">Більше 800 грн</option>
+          <select id="availabilityFilter" name="menu">
+            <option value="">Зайнятість</option>
+           {% for i in timings %}
+                 <option value="{{ i.id }}" {% if i.id == selected_availability %}selected{% endif %}>{{ i.timing_range }}</option>
+              {% endfor %}
+          </select>
+          <select id="costFilter" name="menu">
+            <option value="">Вартість</option>
+            {% for i in prices %}
+                 <option value="{{ i.id }}" {% if i.id == selected_cost %}selected{% endif %}>{{ i.price_range }}</option>
+              {% endfor %}
           </select>
         </div>
-       <div class="checkboxes">
+       <div class="checkboxes" id="studyTypeCheckboxes">
     <label>
-        <input type="checkbox" name="study-type" value="courses">
+        <input type="checkbox" name="study-type" value="1" {% if '1' in selected_study_types %}checked{% endif %}>
         Курси
     </label>
     <label>
-        <input type="checkbox" name="study-type" value="meetings">
-        Офлайн-зустрічі
-    </label>
-    <label>
-        <input type="checkbox" name="study-type" value="mentor-programmes">
-        Менторські програми
-    </label>
-    <label>
-        <input type="checkbox" name="study-type" value="webinars">
+        <input type="checkbox" name="study-type" value="2" {% if '2' in selected_study_types %}checked{% endif %}>
         Вебінари
     </label>
     <label>
-        <input type="checkbox" name="study-type" value="team-projects">
-        Командні проекти
+        <input type="checkbox" name="study-type" value="3" {% if '3' in selected_study_types %}checked{% endif %}>
+        Тренінг
+    </label>
+    <label>
+        <input type="checkbox" name="study-type" value="4" {% if '4' in selected_study_types %}checked{% endif %}>
+        Воркшоп
+    </label>
+    <label>
+        <input type="checkbox" name="study-type" value="5" {% if '5' in selected_study_types %}checked{% endif %}>
+        Майстер-клас
     </label>
 </div>
 
 </div>
-        <button class="search-course" onclick="location.href='{% url 'courses' %}?study-type={{ course_type }}'">Пошук</button>
+        <button class="search-course" onclick="applyFilters()">Пошук</button>
 
 <script>
-    function getSelectedCheckboxes() {
-        const checkboxes = document.querySelectorAll('input[name="study-type"]:checked');
-        return Array.from(checkboxes).map(cb => cb.value);
-    }
+   function applyFilters() {
+  // Отримання значень обраних фільтрів
+  var selectedLevels = Array.from(document.getElementById('levelFilter').selectedOptions).map(option => option.value);
+  var selectedDirections = Array.from(document.getElementById('directionFilter').selectedOptions).map(option => option.value);
+  var selectedAvailabilities = Array.from(document.getElementById('availabilityFilter').selectedOptions).map(option => option.value);
+  var selectedCosts = Array.from(document.getElementById('costFilter').selectedOptions).map(option => option.value);
 
-    const searchBtn = document.querySelector('.search-course');
-    searchBtn.addEventListener('click', function() {
-        const selectedCheckboxes = getSelectedCheckboxes();
-        const queryParams = new URLSearchParams({
-            'study-type': selectedCheckboxes.join(',')
-        });
-        location.href = `{% url 'courses' %}?${queryParams.toString()}`;
+  // Отримання значень обраних чекбоксів
+  var selectedStudyTypes = Array.from(document.querySelectorAll('input[name="study-type"]:checked')).map(checkbox => checkbox.value);
+
+  // Побудова URL-параметрів для передачі фільтрів на сервер
+  var urlParams = new URLSearchParams();
+  if (selectedLevels.length > 0) {
+    urlParams.append('level', selectedLevels.join(','));
+  }
+  if (selectedDirections.length > 0) {
+    urlParams.append('direction', selectedDirections.join(','));
+  }
+  if (selectedAvailabilities.length > 0) {
+    urlParams.append('availability', selectedAvailabilities.join(','));
+  }
+  if (selectedCosts.length > 0) {
+    urlParams.append('cost', selectedCosts.join(','));
+  }
+  if (selectedStudyTypes.length > 0) {
+    selectedStudyTypes.forEach(function (type) {
+      urlParams.append('study-type', type);
     });
+  }
+
+  // Перенаправлення на сторінку courses.html зі збереженими фільтрами
+  window.location.href = '/courses?' + urlParams.toString();
+}
+
+
 </script>
 
     </div>
@@ -87,25 +104,25 @@
     <div class="container">
         {% for study in studies %}
             <div class="course-card">
-                <p></p>
+                <p>{{ study.type.title }}</p>
                 <img src="{% static study.image %}" alt="">
                 <h5 class="name">{{ study.title }}</h5>
                 <p>Ціна: {{ study.price }}грн</p>
-                <p>Рівень: {{ study.level }}</p>
-                <button class="choose-course" onclick="getDataFromServer({{ study.id }})">Детальніше</button>
+                <p>Рівень: {{ study.level.level }}</p>
+                <button class="choose-course" onclick="getDataFromServer({{ study.id }}, {% if request.user.is_anonymous %}true{% else %}false{% endif %})">Детальніше</button>
             </div>
         {% endfor %}
     </div>
   </section>
     <script>
-function getDataFromServer(studyId) {
+function getDataFromServer(studyId, isAnonymous) {
     const courseDetailsModal = document.getElementById('courseinfo');
     event.preventDefault();
     $.ajax({
         url: 'get_study',
         type: 'GET',
         dataType: 'json',
-        data: { 'study_id': studyId },
+        data: { "study_id": studyId },
         success: function (response) {
             var data = response;
             console.log(data);
@@ -127,7 +144,7 @@ function getDataFromServer(studyId) {
                 + '<p>Кількість місць: ' + data.participants + '</p>'
                 + '<p>Необхідне програмне забезпечення: ' + data.programs_settings + '</p>'
                 + '<p>Ціна: ' + data.price + 'грн</p>'
-                + '<input type="submit" onclick="seePaymentModal(' + data.id + ')" value="Придбати" class="choose-course" >'
+                + '<input type="submit" onclick="seePaymentModal(' + data.id + ',' + isAnonymous + ')" value="Придбати" class="choose-course" >'
         );
 
         }
@@ -168,7 +185,7 @@ function getDataFromServer(studyId) {
                {{ payment_form.full_name }}<br>
           <label for="email">Email</label>
                {{ payment_form.email }}<br>
-          <input id="confirmPayment" type="submit" value="Оплатити" class="choose-course" onclick="">
+          <input id="confirmPayment" type="submit" value="Оплатити" class="choose-course">
           </form>
       </div>
     </div>
@@ -180,6 +197,15 @@ function getDataFromServer(studyId) {
         <h2>Дякуємо! </h2>
         <h2>Вам надано доступ до навчання! Усі деталі на вашій електронній пошті.</h2>
         <input id="thanksButton" type="submit" value="Дякую!" class="choose-course">
+      </div>
+    </div>
+  </section >
+    <section id="loginsignup" class="thankforbuying  modal__window">
+    <div class="container">
+      <div class="thank-for-buying">
+        <button class="close-button" onclick="">X</button>
+            <h2>Для того, аби стати учасником, Вам потрібно увійти або зареєструватись.</h2>
+            <input id="thanksButton" type="submit" value="Зрозуміло!" class="choose-course" onclick="closeLogInSignUp()">
       </div>
     </div>
   </section >
@@ -195,10 +221,6 @@ function getDataFromServer(studyId) {
     </div>
   </section >
 <script>
-    $(document).ready(function() {
-    $('[data-inputmask]').inputmask();
-});
-
     const courseInfoModal = document.getElementById('courseinfo');
     var buyCourseId;
     const paymentModal = document.getElementById('buycourse');
@@ -206,6 +228,7 @@ function getDataFromServer(studyId) {
     const thankYouModal = document.getElementById('thankforbuying');
     const thankYouButton = document.getElementById('thanksButton');
     const buyErrorModal = document.getElementById('buyError');
+    const logInSignUp = document.getElementById('loginsignup');
 
         function openPaymentModal() {
             event.preventDefault();
@@ -229,11 +252,24 @@ function getDataFromServer(studyId) {
             thankYouModal.style.display = 'none';
         }
 
-        function seePaymentModal(courseId){
+        function openLogInSignUp(){
+            logInSignUp.style.display = 'block';
+        }
+
+        function closeLogInSignUp(){
+            logInSignUp.style.display = 'none';
+        }
+
+        function seePaymentModal(courseId, isAnonymous){
             event.preventDefault();
-            buyCourseId = courseId;
-             closeCourseInfoModal();
-             openPaymentModal();
+            if(isAnonymous){
+                openLogInSignUp();
+            }
+            else {
+                buyCourseId = courseId;
+                closeCourseInfoModal();
+                openPaymentModal();
+            }
         }
 
         function openBuyErrorModal(){
@@ -283,8 +319,23 @@ function getDataFromServer(studyId) {
                     }
                 });
             });
+ $(document).ready(function() {
+        $("[data-inputmask]").inputmask();
+    });
+String.prototype.toTitleCase = function () {
+    return this.replace(/[\p{L}']+/gu, function (txt) {
+        if (txt.charAt(0) === "'") {
+            return "'" + txt.charAt(1).toLowerCase() + txt.substr(2).toLowerCase();
+        } else {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    });
+};
 
+
+function mask(target) {
+    var elem = document.getElementById(target);
+    elem.value = elem.value.replace(/[^a-zA-Zа-яА-ЯҐґЄєІіЇїЁё'\s-]/g, '').toTitleCase().replace(/\s+/g, ' ');
+}
 </script>
-
-
 {% endblock %}

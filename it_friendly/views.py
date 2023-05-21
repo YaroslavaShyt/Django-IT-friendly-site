@@ -5,7 +5,7 @@ from django.utils.encoding import smart_str
 from .forms import SignUpForm, AuthenticationForm, SignInForm, PaymentForm, QuestionForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from .models import Studying, StudyingDirection, FAQ, StudyingType, User, StudyingStudent
+from .models import Studying, StudyingDirection, FAQ, StudyingType, User, StudyingStudent, CourseTimingRange, CourseLevel, CoursePriceRange
 from django.contrib import messages
 from django.core import serializers
 from datetime import datetime
@@ -41,7 +41,7 @@ def sign_up(request):
                     print('user is not none')
                     login(request, new_user)
                     print('after login')
-                    return redirect('courses')
+                    return redirect('save_session')
             else:
                 messages.error(request, form.errors)
                 return redirect('index')
@@ -83,32 +83,58 @@ def get_studying_names(request):
 
 
 def courses(request):
-    get_studying_student_data('oleg')
     sign_in_form = SignInForm()
     sign_up_form = SignUpForm()
     payment_form = PaymentForm()
     question_form = QuestionForm()
+
+    level_filter = request.GET.get('level')
+    direction_filter = request.GET.get('direction')
+    availability_filter = request.GET.get('availability')
+    cost_filter = request.GET.get('cost')
+    study_type_filter = request.GET.getlist('study-type')
+
     studying_directions = StudyingDirection.objects.all()
-    course_type = request.GET.get('study-type')
-    if course_type is not None and 'courses' in course_type:
-        studies = Studying.objects.filter(type='Курс')
-    else:
-        studies = Studying.objects.all()
+    studies = Studying.objects.all()
+    levels = CourseLevel.objects.all()
+    prices = CoursePriceRange.objects.all()
+    timings = CourseTimingRange.objects.all()
+
+    if level_filter:
+        studies = studies.filter(level_id=level_filter)
+    if direction_filter:
+        studies = studies.filter(studying_direction_id=direction_filter)
+    if availability_filter:
+        studies = studies.filter(timing_range_id=availability_filter)
+    if cost_filter:
+        studies = studies.filter(price_range_id=cost_filter)
+    if study_type_filter:
+        studies = studies.filter(type__in=study_type_filter)
+
     return render(request, 'it_friendly/courses.html',
                   context={'studies': studies,
                            'studying_directions': studying_directions,
+                           'levels': levels,
+                           'timings': timings,
+                           'prices': prices,
                            'sign_in_form': sign_in_form,
                            'sign_up_form': sign_up_form,
                            'payment_form': payment_form,
-                           'question_form': question_form
+                           'question_form': question_form,
+                           'selected_level': int(level_filter) if level_filter else level_filter,
+                           'selected_direction': int(direction_filter) if direction_filter else direction_filter,
+                           'selected_availability': int(availability_filter) if availability_filter else availability_filter,
+                           'selected_cost': int(cost_filter) if cost_filter else cost_filter,
+                           'selected_study_types': study_type_filter
                            })
+
+
 
 
 def get_study(request):
     study_id = request.GET.get('study_id')
     study_data = fetch_course_data(study_id)
     return JsonResponse(study_data)
-
 
 def team(request):
     question_form = QuestionForm()
@@ -129,7 +155,7 @@ def set_cookie(request):
 
 
 def save_session(request):
-    request.session['name'] = request.POST.get('name')
+    request.session['session'] = request.POST.get('name')
     return redirect('/it_friendly')
 
 
@@ -149,7 +175,7 @@ def buy_course(request):
                     course_data = fetch_course_data(request.POST.get('courseId'))
                     letter_content = get_letter_template(course_data=course_data)
                     from_email = 'slavka112015@ukr.net'
-                    recipient_list = ['yaroslavashyt@gmail.com']
+                    recipient_list = [request.POST['email']]
                     send_mail(letter_content['subject'], letter_content['message'], from_email, recipient_list)
                     data['success'] = True
                 except:
@@ -174,7 +200,7 @@ def fetch_course_data(study_id):
         'title': study.title,
         'price': study.price,
         'image': study.image,
-        'level': study.level,
+        'level': study.level.level,
         'details': study.details,
         'participants': study.participants,
         'programs_settings': study.programs_settings,
@@ -201,17 +227,17 @@ def ask_question(request):
         print('in form post')
         form = QuestionForm(request.POST)
         if form.is_valid():
-           # try:
-            letter_content = get_ask_question_letter_template(request.POST)
-            from_email = 'slavka112015@ukr.net'
-            recipient_list = ['yaroslavashyt@gmail.com']
-            send_mail(letter_content['subject'], letter_content['message'], from_email, recipient_list)
-            data['success'] = True
-           # except:
-          #  data['errors'] = ['Не вдалося поставити питання. '
-           #                   'Схоже проблема на нашому боці! '
-           #                   'Ми працюємо над її усуненням. ']
-        #return JsonResponse(data)
+            try:
+                letter_content = get_ask_question_letter_template(request.POST)
+                from_email = 'slavka112015@ukr.net'
+                recipient_list = ['yaroslavashyt@gmail.com']
+                send_mail(letter_content['subject'], letter_content['message'], from_email, recipient_list)
+                data['success'] = True
+            except:
+                data['errors'] = ['Не вдалося поставити питання. '
+                                  'Схоже проблема на нашому боці! '
+                                  'Ми працюємо над її усуненням. ']
+                return JsonResponse(data)
 
         else:
             print('invalid')
