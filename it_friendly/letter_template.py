@@ -11,6 +11,6 @@ def get_ask_question_letter_template(question_data):
     subject = f'IT-friendly: питання'
     message = f'Ім\'я: {question_data["name"]}\n\n' \
               f'Тип зв\'язку: {question_data["contact_method"]}\n\n' \
-              f'Ідентифікатор: {question_data["question"]}\n\n' \
+              f'Ідентифікатор: {question_data["contact_info"]}\n\n' \
               f'Запитання: {question_data["question"]}'
     return {'subject': subject, 'message': message}

@@ -129,12 +129,11 @@ def courses(request):
                            })
 
 
-
-
 def get_study(request):
     study_id = request.GET.get('study_id')
     study_data = fetch_course_data(study_id)
     return JsonResponse(study_data)
+
 
 def team(request):
     question_form = QuestionForm()

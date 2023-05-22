@@ -166,26 +166,10 @@ function copyEmail() {
             <br>
           <input type="submit" value="Увійти" class="choose-course">
         </form>
-        <a href="">Забули пароль?</a>
+        <a href="{% url 'password_reset' %}">Забули пароль?</a>
       </div>
     </div>
 </section>
-<!--
-<script>
-    $(document).ready(function(){
-        $('#signin').submit(function(event){
-            event.preventDefault();
-            console.log('in js sign in');
-            const formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: 'sign_in',
-                data: formData,
-            });
-            });
-        });
-</script>
--->
 <section class="register modal__window">
     <div class="container">
       <div class="sign-up">
@@ -210,21 +194,6 @@ function copyEmail() {
       </div>
     </div>
   </section>
-<!--
-<script>
-    $(document).ready(function(){
-        $('#signup').submit(function(event){
-            event.preventDefault();
-            const formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: 'sign_up',
-                data: formData,
-            });
-            });
-        });
-</script>
--->
   <section id="askQuestion" class="askquestion modal__window">
     <div class="container">
       <div class="ask-question">
@@ -233,21 +202,13 @@ function copyEmail() {
         <form id="askQuestionForm" action="{% url 'ask_question' %}" method="post">
             {% csrf_token %}
           <label for="name">Ім'я</label>
-            {{ question_form.name }}
-       <!--   <input type="text" id="name" name="name" required class="form-field">--><br>
+            {{ question_form.name }}<br>
           <label for="connection">Тип зв'язку</label>
             {{ question_form.contact_method }}
-        <!--  <select name="menu">
-            <option value="option1">Телеграм</option>
-            <option value="option2">Email</option>
-            <option value="option3">За номером телефону</option>
-          </select>-->
           <label for="id">Нікнейм, email чи інші ідентифікатори...</label>
-            {{ question_form.contact_info }}
-        <!--  <input type="text" id="id" name="id" required class="form-field">--><br>
-          <label for="id">Твоє запитання</label>
+            {{ question_form.contact_info }}<br>
+          <label for="question">Твоє запитання</label>
             {{ question_form.question }}
-       <!--   <textarea name="question" id="" cols="" rows="5"></textarea>-->
           <input type="submit" value="Надіслати питання" class="choose-course">
         </form>
       </div>
@@ -259,7 +220,7 @@ function copyEmail() {
         <button class="close-button" onclick="">X</button>
         <h2>Дякуємо за запитання! </h2>
         <h2>Наші співробітники обов'язково згодом зв'яжуться з Вами!</h2>
-        <input id="thanksButton" type="submit" value="Дякую!" class="choose-course">
+        <input id="thanksButton" type="submit" value="Дякую!" class="choose-course" onclick="closeThankQuestionModal()">
       </div>
     </div>
   </section >
@@ -270,7 +231,7 @@ function copyEmail() {
         <div id="new_content">
 
         </div>
-        <input id="thanksButton" type="submit" value="Окей" class="choose-course" onclick="closeBuyErrorModal()">
+        <input id="thanksButton" type="submit" value="Окей" class="choose-course" onclick="closeQuestionErrorModal()">
       </div>
     </div>
   </section >

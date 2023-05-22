@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on IT-friendly
+From: webmaster@localhost
+To: yaroslavashyt@gmail.com
+Date: Mon, 22 May 2023 12:43:54 -0000
+Message-ID: <168475943411.16964.5136252537329469318@WIN-VMU4DNI9DUF>
+
+
+You're receiving this email because you requested a password reset for your user account at IT-friendly.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/password-reset/confirm/MQ/bolyd6-17f826320492fe214922be821ff99b20/
+
+Your username, in case you’ve forgotten: Yaroslava
+
+Thanks for using our site!
+
+The IT-friendly team
+
+
+
+-------------------------------------------------------------------------------
