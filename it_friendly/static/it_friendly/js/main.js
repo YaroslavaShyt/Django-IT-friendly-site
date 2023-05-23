@@ -1,23 +1,22 @@
 window.onload = function () {
-    // BURGER
+
     $('header .hamburger').click(()=> {
         $('header nav').slideToggle()
         $('header .hamburger').toggleClass('active')
     })
 
-        //Slider
-    $('.container-slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        fade: true,
-        arrows: false,
-        cssEase: 'linear'
-    });
 
+     $('.container-slider').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            fade: true,
+            arrows: false,
+            cssEase: 'linear'
+        });
 
     $('[data-modal]').click(function() {
     let cl = this.getAttribute('data-modal');

@@ -14,9 +14,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <script src="{%  static 'it_friendly/js/main.js' %}"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <title>{% block title %}IT-friendly{% endblock %}</title>
 </head>
@@ -77,7 +75,6 @@
           <a href="{% url 'index' %}">It-friendly</a>
         <p>Простір для навчання в IT</p>
         </div>
-
         <div class="bottom">
           <a href="{% url 'courses' %}">Навчання</a>
           <a href="#" onclick="openAskQuestion()" >Підтримка</a>
@@ -114,32 +111,6 @@
         </div>
     </div>
 </section>
-<!--<script>
-    function openAccountModal(){
-        event.preventDefault();
-    const accountWindow = document.getElementById('account');
-    const currentPath = window.location.href;
-    console.log(currentPath + 'get_user_studies')
-       $.ajax({
-           url: currentPath + 'get_user_studies',
-           type: 'GET',
-           dataType: 'json',
-           success: function (response){
-               var data = response.data;
-               console.log(data)
-               var modalContent = $('#courses');
-               modalContent.empty();
-               for (var i = 0; i < data.length; i++){
-                   modalContent.append('<p id="faq_a">' + data[i] + '</p>');
-               }
-               accountWindow.style.display = 'block';
-           }
-    })
-
-    }
-
-</script>-->
-
  <section class="login modal__window">
       <div class="container">
       <div class="log-in">
@@ -225,87 +196,19 @@
       </div>
     </div>
   </section >
-<!--
-<script>
-    /*
-    const askQuestionModal = document.getElementById('askQuestion');
-    const thankQuestionModal = document.getElementById('thankQuestion');
-    const questionErrorModal = document.getElementById('questionError');
-    const askQuestionForm = document.getElementById('askQuestionForm');
-    const url = askQuestionForm.dataset.url;
-*/
- /*
-    function closeThankQuestionModal(){
-        thankQuestionModal.style.display = 'none';
-    }
-
-    function closeQuestionErrorModal(){
-        questionErrorModal.style.display = 'none';
-    }
-
-    function openAskQuestion(){
-        event.preventDefault();
-        askQuestionModal.style.display = 'block';
-    }
-
-    function closeAskQuestion() {
-        askQuestionModal.style.display = 'none';
-    }
-
-    function openThankQuestionModal() {
-        thankQuestionModal.style.display = 'block';
-    }
-
-    function openQuestionErrorModal(){
-        questionErrorModal.style.display = 'block';
-    }*/
-
- /*  $('#askQuestionForm').submit(function(event){
-         console.log('in function question form')
-        event.preventDefault();
-        let formData = $(this).serialize();
-        console.log('in function before ajax')
-        $.ajax({
-            type: 'POST',
-            url: 'ask_question',
-            data: formData,
-            dataType: 'json'
-        })
-            .done(function (response){
-                if (response.success === true){
-                    console.log('success')
-                    closeAskQuestion();
-                    openThankQuestionModal();
-                }else {
-                    openQuestionErrorModal();
-                    var modalContent = $('#new_content');
-                    modalContent.empty();
-                    console.log(response.errors)
-                    for (var i = 0; i < response.errors.length; i++) {
-                        modalContent.append('<h2 id="faq_q">' + response.errors[i] + '</h2>');
-                    }
-                }
-            });
-        });*/
-
-</script>-->
   <section class="faq modal__window" id="faq_window">
     <div class="container">
       <div class="questions">
         <button class="close-button">X</button>
         <h2>Найчастіше запитують:</h2>
           <div id="questions">
-
           </div>
-
       </div>
     </div>
   </section>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src={% static 'it_friendly/js/main.js' %}></script>
-
  <script src="{% static 'it_friendly/js/functions.js' %}"></script>
-
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </body>

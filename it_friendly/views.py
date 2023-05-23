@@ -36,8 +36,7 @@ def sign_up(request):
                 new_user = authenticate(username=username, password=password)
                 if new_user is not None:
                     login(request, new_user)
-                    print('after login')
-                    return redirect('save_session')
+                    return redirect('courses')
             else:
                 messages.error(request, form.errors)
                 return redirect('index')
@@ -49,7 +48,6 @@ def sign_up(request):
 def sign_out(request):
     logout(request)
     return redirect('index')
-
 
 
 def index(request):
@@ -137,8 +135,6 @@ def team(request):
     sign_in_form = SignInForm()
     sign_up_form = SignUpForm()
     team = Worker.objects.all()
-    for i in team:
-        print(i.image)
     context = {'sign_in_form': sign_in_form,
                'sign_up_form': sign_up_form,
                'question_form':  question_form,
@@ -164,7 +160,6 @@ def buy_course(request):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
-            print('is valid')
             if request.POST.get('card_number') != '0000000000000000' \
                     and len(request.POST.get('card_number').replace(' ', '')) == 16:
                 try:

@@ -59,45 +59,6 @@
 
 </div>
         <button class="search-course" onclick="applyFilters()">Пошук</button>
-<!--
-<script>
-   function applyFilters() {
-  // Отримання значень обраних фільтрів
-  var selectedLevels = Array.from(document.getElementById('levelFilter').selectedOptions).map(option => option.value);
-  var selectedDirections = Array.from(document.getElementById('directionFilter').selectedOptions).map(option => option.value);
-  var selectedAvailabilities = Array.from(document.getElementById('availabilityFilter').selectedOptions).map(option => option.value);
-  var selectedCosts = Array.from(document.getElementById('costFilter').selectedOptions).map(option => option.value);
-
-  // Отримання значень обраних чекбоксів
-  var selectedStudyTypes = Array.from(document.querySelectorAll('input[name="study-type"]:checked')).map(checkbox => checkbox.value);
-
-  // Побудова URL-параметрів для передачі фільтрів на сервер
-  var urlParams = new URLSearchParams();
-  if (selectedLevels.length > 0) {
-    urlParams.append('level', selectedLevels.join(','));
-  }
-  if (selectedDirections.length > 0) {
-    urlParams.append('direction', selectedDirections.join(','));
-  }
-  if (selectedAvailabilities.length > 0) {
-    urlParams.append('availability', selectedAvailabilities.join(','));
-  }
-  if (selectedCosts.length > 0) {
-    urlParams.append('cost', selectedCosts.join(','));
-  }
-  if (selectedStudyTypes.length > 0) {
-    selectedStudyTypes.forEach(function (type) {
-      urlParams.append('study-type', type);
-    });
-  }
-
-  // Перенаправлення на сторінку courses.html зі збереженими фільтрами
-  window.location.href = '/courses?' + urlParams.toString();
-}
-
-
-</script>-->
-
     </div>
   </section>
   <section class="courses_slide_2">
@@ -114,44 +75,6 @@
         {% endfor %}
     </div>
   </section>
-<!--    <script>
-function getDataFromServer(studyId, isAnonymous) {
-    const courseDetailsModal = document.getElementById('courseinfo');
-    event.preventDefault();
-    $.ajax({
-        url: 'get_study',
-        type: 'GET',
-        dataType: 'json',
-        data: { "study_id": studyId },
-        success: function (response) {
-            var data = response;
-            console.log(data);
-            var modalContent = $('#info');
-            modalContent.empty();
-            modalContent.append('<div class="description">'
-                + '<div>'
-                + '<div class="title">'
-                + '<p>' + data.type + '</p>'
-                + '<h3>' + data.title + '</h3>'
-                + '</div>'
-                + '<p>Рівень: ' + data.level + '</p>'
-                + '<p>Тривалість: ' + data.time + '</p>'
-                + '<p>Початок: ' + data.beginning + '</p>'
-                + '</div>'
-                + '<div class="image">' + '<img src="/static/' + data.image +'" alt="">'+'</div>'
-                + '</div>'
-                + '<p>Як проходить: ' + data.details + '</p>'
-                + '<p>Кількість місць: ' + data.participants + '</p>'
-                + '<p>Необхідне програмне забезпечення: ' + data.programs_settings + '</p>'
-                + '<p>Ціна: ' + data.price + 'грн</p>'
-                + '<input type="submit" onclick="seePaymentModal(' + data.id + ',' + isAnonymous + ')" value="Придбати" class="choose-course" >'
-        );
-
-        }
-    });
-    courseDetailsModal.style.display = 'block';
-}
-</script>-->
 <section id="courseinfo" class="courseinfo  modal__window">
     <div class="container">
       <div class="course-info">
@@ -214,128 +137,9 @@ function getDataFromServer(studyId, isAnonymous) {
       <div class="thank-for-buying">
         <button class="close-button" onclick="">X</button>
         <div id="new_content">
-
         </div>
         <input id="thanksButton" type="submit" value="Окей" class="choose-course" onclick="closeBuyErrorModal()">
       </div>
     </div>
   </section >
-<!--<script>
-    const courseInfoModal = document.getElementById('courseinfo');
-    var buyCourseId;
-    const paymentModal = document.getElementById('buycourse');
-    const confirmPaymentButton = document.getElementById('confirmPayment');
-    const thankYouModal = document.getElementById('thankforbuying');
-    const thankYouButton = document.getElementById('thanksButton');
-    const buyErrorModal = document.getElementById('buyError');
-    const logInSignUp = document.getElementById('loginsignup');
-
-        function openPaymentModal() {
-            event.preventDefault();
-            paymentModal.style.display = 'block';
-        }
-
-        function closePaymentModal() {
-            paymentModal.style.display = 'none';
-        }
-
-        function closeCourseInfoModal(){
-            courseInfoModal.style.display = 'none';
-        }
-
-        function openThankYouModal() {
-            event.preventDefault();
-            thankYouModal.style.display = 'block';
-        }
-
-        function closeThankYouModal() {
-            thankYouModal.style.display = 'none';
-        }
-
-        function openLogInSignUp(){
-            logInSignUp.style.display = 'block';
-        }
-
-        function closeLogInSignUp(){
-            logInSignUp.style.display = 'none';
-        }
-
-        function seePaymentModal(courseId, isAnonymous){
-            event.preventDefault();
-            if(isAnonymous){
-                openLogInSignUp();
-            }
-            else {
-                buyCourseId = courseId;
-                closeCourseInfoModal();
-                openPaymentModal();
-            }
-        }
-
-        function openBuyErrorModal(){
-            event.preventDefault();
-            buyErrorModal.style.display = 'block';
-        }
-
-        function closeBuyErrorModal(){
-            buyErrorModal.style.display = 'none';
-        }
-
-        confirmPaymentButton.addEventListener('click', function() {
-             closePaymentModal();
-            // openThankYouModal();
-        });
-
-        thankYouButton.addEventListener('click', function() {
-             closeThankYouModal();
-        });
-
-
-        $('#payForm').submit(function(event){
-             console.log('in function', buyCourseId)
-            event.preventDefault();
-            let formData = $(this).serialize();
-            formData += '&courseId=' + buyCourseId;
-            console.log('in function')
-            $.ajax({
-                type: 'POST',
-                url: 'buy_course',
-                data: formData,
-                dataType: 'json'
-            })
-                .done(function (response){
-                    if (response.success === true){
-                        console.log('success')
-                        openThankYouModal();
-                    }else {
-                        openPaymentModal();
-                        openBuyErrorModal();
-                        var modalContent = $('#new_content');
-                        modalContent.empty();
-                        console.log(response.errors)
-                        for (var i = 0; i < response.errors.length; i++) {
-                            modalContent.append('<h2 id="faq_q">' + response.errors[i] + '</h2>');
-                        }
-                    }
-                });
-            });
- $(document).ready(function() {
-        $("[data-inputmask]").inputmask();
-    });
-String.prototype.toTitleCase = function () {
-    return this.replace(/[\p{L}']+/gu, function (txt) {
-        if (txt.charAt(0) === "'") {
-            return "'" + txt.charAt(1).toLowerCase() + txt.substr(2).toLowerCase();
-        } else {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        }
-    });
-};
-
-
-function mask(target) {
-    var elem = document.getElementById(target);
-    elem.value = elem.value.replace(/[^a-zA-Zа-яА-ЯҐґЄєІіЇїЁё'\s-]/g, '').toTitleCase().replace(/\s+/g, ' ');
-}
-</script>-->
 {% endblock %}

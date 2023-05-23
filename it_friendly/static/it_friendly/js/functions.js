@@ -1,63 +1,48 @@
 const askQuestionModal = document.getElementById('askQuestion');
 const thankQuestionModal = document.getElementById('thankQuestion');
 const questionErrorModal = document.getElementById('questionError');
-
+const courseInfoModal = document.getElementById('courseinfo');
+const paymentModal = document.getElementById('buycourse');
+const confirmPaymentButton = document.getElementById('confirmPayment');
+const thankYouModal = document.getElementById('thankforbuying');
+const thankYouButton = document.getElementById('thanksButton');
+const buyErrorModal = document.getElementById('buyError');
+const logInSignUp = document.getElementById('loginsignup');
+let buyCourseId;
 
 
 function copyEmail() {
-    event.preventDefault();
     const email = "itfriendly_corporative.gmail.com";
-    navigator.clipboard.writeText(email);
+    navigator.clipboard.writeText(email).then(() => {
+            console.log("Email copied successfully!");
+        })
+        .catch((error) => {
+            console.error("Error copying email:", error);
+        });
 }
 
 function openAccountModal(){
-    event.preventDefault();
-const accountWindow = document.getElementById('account');
-const currentPath = window.location.href;
-console.log(currentPath + 'get_user_studies')
-   $.ajax({
-       url: currentPath + 'get_user_studies',
-       type: 'GET',
-       dataType: 'json',
-       success: function (response){
-           const data = response.data;
-           console.log(data)
-           const modalContent = $('#courses');
-           modalContent.empty();
-           for (let i = 0; i < data.length; i++){
-               modalContent.append('<p id="faq_a">' + data[i] + '</p>');
+    const accountWindow = document.getElementById('account');
+    const currentPath = window.location.href;
+    console.log(currentPath + 'get_user_studies')
+       $.ajax({
+           url: currentPath + 'get_user_studies',
+           type: 'GET',
+           dataType: 'json',
+           success: function (response){
+               const data = response.data;
+               console.log(data)
+               const modalContent = $('#courses');
+               modalContent.empty();
+               for (let i = 0; i < data.length; i++){
+                   modalContent.append('<p id="faq_a">' + data[i] + '</p>');
+               }
+               accountWindow.style.display = 'block';
            }
-           accountWindow.style.display = 'block';
-       }
 })
 
 }
 
-
-function closeThankQuestionModal(){
-    thankQuestionModal.style.display = 'none';
-}
-
-function closeQuestionErrorModal(){
-    questionErrorModal.style.display = 'none';
-}
-
-function openAskQuestion(){
-    event.preventDefault();
-    askQuestionModal.style.display = 'block';
-}
-
-function closeAskQuestion() {
-    askQuestionModal.style.display = 'none';
-}
-
-function openThankQuestionModal() {
-    thankQuestionModal.style.display = 'block';
-}
-
-function openQuestionErrorModal(){
-    questionErrorModal.style.display = 'block';
-}
 
 $('#askQuestionForm').submit(function(event){
     event.preventDefault();
@@ -75,10 +60,10 @@ $('#askQuestionForm').submit(function(event){
                 openThankQuestionModal();
             }else {
                 openQuestionErrorModal();
-                var modalContent = $('#new_content');
+                const modalContent = $('#new_content');
                 modalContent.empty();
                 console.log(response.errors)
-                for (var i = 0; i < response.errors.length; i++) {
+                for (let i = 0; i < response.errors.length; i++) {
                     modalContent.append('<h2 id="faq_q">' + response.errors[i] + '</h2>');
                 }
             }
@@ -87,23 +72,21 @@ $('#askQuestionForm').submit(function(event){
 
   function getFAQ(){
     const faqWindow = document.getElementById('faq_window')
-        event.preventDefault();
         faqWindow.style.display = 'block';
        $.ajax({
            url: 'get_faq_data',
            type: 'GET',
            dataType: 'json',
            success: function (response){
-               var data = response.data;
-               var modalContent = $('#questions');
+               const data = response.data;
+               const modalContent = $('#questions');
                modalContent.empty();
-               for (var i = 0; i < data.length; i++){
+               for (let i = 0; i < data.length; i++){
                    modalContent.append('<h3 id="faq_q">' + data[i].question + '</h3>');
                    modalContent.append('<p id="faq_a">' + data[i].answer + '</p>');
                }
            }
     })}
-
 
  function applyFilters() {
      const selectedLevels = Array.from(document.getElementById('levelFilter').selectedOptions).map(option => option.value);
@@ -137,16 +120,15 @@ $('#askQuestionForm').submit(function(event){
 
 function getDataFromServer(studyId, isAnonymous) {
     const courseDetailsModal = document.getElementById('courseinfo');
-    event.preventDefault();
     $.ajax({
         url: 'get_study',
         type: 'GET',
         dataType: 'json',
         data: { "study_id": studyId },
         success: function (response) {
-            var data = response;
+            const data = response;
             console.log(data);
-            var modalContent = $('#info');
+            const modalContent = $('#info');
             modalContent.empty();
             modalContent.append('<div class="description">'
                 + '<div>'
@@ -172,73 +154,7 @@ function getDataFromServer(studyId, isAnonymous) {
     courseDetailsModal.style.display = 'block';
 }
 
-   const courseInfoModal = document.getElementById('courseinfo');
-    var buyCourseId;
-    const paymentModal = document.getElementById('buycourse');
-    const confirmPaymentButton = document.getElementById('confirmPayment');
-    const thankYouModal = document.getElementById('thankforbuying');
-    const thankYouButton = document.getElementById('thanksButton');
-    const buyErrorModal = document.getElementById('buyError');
-    const logInSignUp = document.getElementById('loginsignup');
-
-        function openPaymentModal() {
-            paymentModal.style.display = 'block';
-        }
-
-        function closePaymentModal() {
-            paymentModal.style.display = 'none';
-        }
-
-        function closeCourseInfoModal(){
-            courseInfoModal.style.display = 'none';
-        }
-
-        function openThankYouModal() {
-            thankYouModal.style.display = 'block';
-        }
-
-        function closeThankYouModal() {
-            thankYouModal.style.display = 'none';
-        }
-
-        function openLogInSignUp(){
-            logInSignUp.style.display = 'block';
-        }
-
-        function closeLogInSignUp(){
-            logInSignUp.style.display = 'none';
-        }
-
-        function seePaymentModal(courseId, isAnonymous){
-            if(isAnonymous){
-                openLogInSignUp();
-            }
-            else {
-                buyCourseId = courseId;
-                closeCourseInfoModal();
-                openPaymentModal();
-            }
-        }
-
-        function openBuyErrorModal(){
-            buyErrorModal.style.display = 'block';
-        }
-
-        function closeBuyErrorModal(){
-            buyErrorModal.style.display = 'none';
-        }
-
-        confirmPaymentButton.addEventListener('click', function() {
-             closePaymentModal();
-            // openThankYouModal();
-        });
-
-        thankYouButton.addEventListener('click', function() {
-             closeThankYouModal();
-        });
-
-
-        $('#payForm').submit(function(event){
+$('#payForm').submit(function(event){
              console.log('in function', buyCourseId)
             event.preventDefault();
             let formData = $(this).serialize();
@@ -257,15 +173,16 @@ function getDataFromServer(studyId, isAnonymous) {
                     }else {
                         openPaymentModal();
                         openBuyErrorModal();
-                        var modalContent = $('#new_content');
+                        const modalContent = $('#new_content');
                         modalContent.empty();
                         console.log(response.errors)
-                        for (var i = 0; i < response.errors.length; i++) {
+                        for (let i = 0; i < response.errors.length; i++) {
                             modalContent.append('<h2 id="faq_q">' + response.errors[i] + '</h2>');
                         }
                     }
                 });
             });
+
  $(document).ready(function() {
         $("[data-inputmask]").inputmask();
     });
@@ -279,8 +196,88 @@ String.prototype.toTitleCase = function () {
     });
 };
 
-
 function mask(target) {
-    var elem = document.getElementById(target);
+    const elem = document.getElementById(target);
     elem.value = elem.value.replace(/[^a-zA-Zа-яА-ЯҐґЄєІіЇїЁё'\s-]/g, '').toTitleCase().replace(/\s+/g, ' ');
 }
+
+function closeThankQuestionModal(){
+    thankQuestionModal.style.display = 'none';
+}
+
+function closeQuestionErrorModal(){
+    questionErrorModal.style.display = 'none';
+}
+
+function openAskQuestion(){
+    askQuestionModal.style.display = 'block';
+}
+
+function closeAskQuestion() {
+    askQuestionModal.style.display = 'none';
+}
+
+function openThankQuestionModal() {
+    thankQuestionModal.style.display = 'block';
+}
+
+function openQuestionErrorModal(){
+    questionErrorModal.style.display = 'block';
+}
+
+function openPaymentModal() {
+    paymentModal.style.display = 'block';
+}
+
+function closePaymentModal() {
+    paymentModal.style.display = 'none';
+}
+
+function closeCourseInfoModal(){
+    courseInfoModal.style.display = 'none';
+}
+
+function openThankYouModal() {
+    thankYouModal.style.display = 'block';
+}
+
+function closeThankYouModal() {
+    thankYouModal.style.display = 'none';
+}
+
+function openLogInSignUp(){
+    logInSignUp.style.display = 'block';
+}
+
+function closeLogInSignUp(){
+    logInSignUp.style.display = 'none';
+}
+
+function seePaymentModal(courseId, isAnonymous){
+    if(isAnonymous){
+        openLogInSignUp();
+    }
+    else {
+        buyCourseId = courseId;
+        closeCourseInfoModal();
+        openPaymentModal();
+    }
+}
+
+function openBuyErrorModal(){
+    buyErrorModal.style.display = 'block';
+}
+
+function closeBuyErrorModal(){
+    buyErrorModal.style.display = 'none';
+}
+
+confirmPaymentButton.addEventListener('click', function() {
+    closePaymentModal();
+});
+
+thankYouButton.addEventListener('click', function() {
+     closeThankYouModal();
+});
+
+
