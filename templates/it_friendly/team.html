@@ -16,37 +16,13 @@
     </section>
     <section class="team_slide_2">
         <div class="container">
+            {% for member in team %}
             <div class="team-member">
-                <img src="{% static 'it_friendly/images/team/olga_zasnovnycia.jpg' %}" alt="">
-                <p class="name">Ольга</p>
-                <p>Засновниця IT-friendly</p>
+            <img src="{% static member.image %}" alt="">
+                <p class="name">{{ member.name }}</p>
+                <p>{{ member.duties }}</p>
             </div>
-            <div class="team-member">
-                <img src="{% static 'it_friendly/images/team/margaryta_pr.jpg' %}" alt="">
-                <p class="name">Маргарита</p>
-                <p>PR-менеджер</p>
-            </div>
-            <div class="team-member">
-                <img src="{% static 'it_friendly/images/team/oleg_web_developer.jpg' %}" alt="">
-                <p class="name">Олег</p>
-                <p>Веб-розробник</p>
-            </div>
-            <div class="team-member">
-                <img src="{% static 'it_friendly/images/team/pavlo_middle_java_dev.jpg' %}" alt="">
-                <p class="name">Павло</p>
-                <p>Middle Java-розробник</p>
-            </div>
-            <div class="team-member">
-                <img src="{% static 'it_friendly/images/team/myroslava_middle_flutter_dev.jpg' %}" alt="">
-                <p class="name">Мирослава</p>
-                <p>Middle Flutter-розробник</p>
-            </div>
-            <div class="team-member">
-                <img src="{% static 'it_friendly/images/team/volodymyr_ui_designer.jpg' %}" alt="">
-                <p class="name">Володимир</p>
-                <p>UI-дизайнер</p>
-            </div>
-
+            {% endfor %}
         </div>
     </section>
 {% endblock %}

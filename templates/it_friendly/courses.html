@@ -45,21 +45,21 @@
     </label>
     <label>
         <input type="checkbox" name="study-type" value="3" {% if '3' in selected_study_types %}checked{% endif %}>
-        Тренінг
+        Тренінги
     </label>
     <label>
         <input type="checkbox" name="study-type" value="4" {% if '4' in selected_study_types %}checked{% endif %}>
-        Воркшоп
+        Воркшопи
     </label>
     <label>
         <input type="checkbox" name="study-type" value="5" {% if '5' in selected_study_types %}checked{% endif %}>
-        Майстер-клас
+        Майстер-класи
     </label>
 </div>
 
 </div>
         <button class="search-course" onclick="applyFilters()">Пошук</button>
-
+<!--
 <script>
    function applyFilters() {
   // Отримання значень обраних фільтрів
@@ -96,7 +96,7 @@
 }
 
 
-</script>
+</script>-->
 
     </div>
   </section>
@@ -114,7 +114,7 @@
         {% endfor %}
     </div>
   </section>
-    <script>
+<!--    <script>
 function getDataFromServer(studyId, isAnonymous) {
     const courseDetailsModal = document.getElementById('courseinfo');
     event.preventDefault();
@@ -151,7 +151,7 @@ function getDataFromServer(studyId, isAnonymous) {
     });
     courseDetailsModal.style.display = 'block';
 }
-</script>
+</script>-->
 <section id="courseinfo" class="courseinfo  modal__window">
     <div class="container">
       <div class="course-info">
@@ -220,7 +220,7 @@ function getDataFromServer(studyId, isAnonymous) {
       </div>
     </div>
   </section >
-<script>
+<!--<script>
     const courseInfoModal = document.getElementById('courseinfo');
     var buyCourseId;
     const paymentModal = document.getElementById('buycourse');
@@ -337,5 +337,5 @@ function mask(target) {
     var elem = document.getElementById(target);
     elem.value = elem.value.replace(/[^a-zA-Zа-яА-ЯҐґЄєІіЇїЁё'\s-]/g, '').toTitleCase().replace(/\s+/g, ' ');
 }
-</script>
+</script>-->
 {% endblock %}

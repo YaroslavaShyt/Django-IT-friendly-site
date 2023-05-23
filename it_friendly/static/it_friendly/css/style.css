@@ -160,6 +160,12 @@ nav a {
   }
 }
 
+@media (max-width: 910px){
+  header div p {
+    margin: 0 0 5px 20px;
+}
+}
+
 body {
   background-color: #EEEFA8;
   overflow-x: hidden;
@@ -1099,7 +1105,6 @@ footer .footer-content .bottom-adaptive {
 
 .team_slide_1 {
   background-image: url("../images/team/team-background.png");
-  background-repeat: no-repeat;
 }
 .team_slide_1 .container {
   display: flex;

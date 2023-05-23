@@ -14,7 +14,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <script src="{%  static 'it_friendly/js/main.js' %}"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <title>{% block title %}IT-friendly{% endblock %}</title>
 </head>
@@ -30,7 +32,6 @@
         </div>
         <p>Простір для навчання в IT</p>
       </div>
-
       <nav class="top">
         <ul>
           <li><a href="{% url 'team' %}">Наша команда</a></li>
@@ -60,15 +61,12 @@
     </div>
 {% endfor %}
 <main>
-    {% block main %}
-
-    {% endblock %}
+    {% block main %}{% endblock %}
 </main>
 <footer>
     {% block footer %}
         <div class="container">
       <div class="footer-content">
-
         <div class="logo">
           <svg width="40" height="40" viewBox="0 0 55 52" fill="none" xmlns="http://www.w3.org/2000/svg"
             class="logo-icon">
@@ -99,14 +97,6 @@
     </div>
     {% endblock %}
 </footer>
-<script>
-function copyEmail() {
-    event.preventDefault();
-  var email = "itfriendly_corporative.gmail.com";
-  navigator.clipboard.writeText(email);
-}
-</script>
-
 <section id="account" class="usercourses modal__window">
     <div class="container">
         <div class="user-courses">
@@ -115,7 +105,7 @@ function copyEmail() {
              <div><img src="{% static 'it_friendly/images/account.jpg' %}" alt=""></div>
              <div>
                 <h3>{{ request.user }}</h3>
-                <a href="">Видалити акаунт</a></div>
+                <a href=""></a></div>
             </div>
             <h3>Мої курси</h3>
             <div id="courses">
@@ -124,7 +114,7 @@ function copyEmail() {
         </div>
     </div>
 </section>
-<script>
+<!--<script>
     function openAccountModal(){
         event.preventDefault();
     const accountWindow = document.getElementById('account');
@@ -148,7 +138,7 @@ function copyEmail() {
 
     }
 
-</script>
+</script>-->
 
  <section class="login modal__window">
       <div class="container">
@@ -199,7 +189,7 @@ function copyEmail() {
       <div class="ask-question">
         <button class="close-button">X</button>
         <h2>Постав запитання та отримуй відповідь зручним для тебе способом!</h2>
-        <form id="askQuestionForm" action="{% url 'ask_question' %}" method="post">
+        <form id="askQuestionForm" action="{% url 'ask_question' %}" method="post" data-url="{% url 'ask_question' %}">
             {% csrf_token %}
           <label for="name">Ім'я</label>
             {{ question_form.name }}<br>
@@ -235,11 +225,16 @@ function copyEmail() {
       </div>
     </div>
   </section >
+<!--
 <script>
+    /*
     const askQuestionModal = document.getElementById('askQuestion');
     const thankQuestionModal = document.getElementById('thankQuestion');
     const questionErrorModal = document.getElementById('questionError');
-
+    const askQuestionForm = document.getElementById('askQuestionForm');
+    const url = askQuestionForm.dataset.url;
+*/
+ /*
     function closeThankQuestionModal(){
         thankQuestionModal.style.display = 'none';
     }
@@ -263,9 +258,9 @@ function copyEmail() {
 
     function openQuestionErrorModal(){
         questionErrorModal.style.display = 'block';
-    }
+    }*/
 
-    $('#askQuestionForm').submit(function(event){
+ /*  $('#askQuestionForm').submit(function(event){
          console.log('in function question form')
         event.preventDefault();
         let formData = $(this).serialize();
@@ -291,9 +286,9 @@ function copyEmail() {
                     }
                 }
             });
-        });
+        });*/
 
-</script>
+</script>-->
   <section class="faq modal__window" id="faq_window">
     <div class="container">
       <div class="questions">
@@ -306,30 +301,11 @@ function copyEmail() {
       </div>
     </div>
   </section>
-<script>
-    function getFAQ(){
-    const faqWindow = document.getElementById('faq_window')
-        event.preventDefault();
-        faqWindow.style.display = 'block';
-       $.ajax({
-           url: 'get_faq_data',
-           type: 'GET',
-           dataType: 'json',
-           success: function (response){
-               var data = response.data;
-               var modalContent = $('#questions');
-               modalContent.empty();
-               for (var i = 0; i < data.length; i++){
-                   modalContent.append('<h3 id="faq_q">' + data[i].question + '</h3>');
-                   modalContent.append('<p id="faq_a">' + data[i].answer + '</p>');
-               }
-           }
-    })}
-
-</script>
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src={% static 'it_friendly/js/main.js' %}></script>
+
+ <script src="{% static 'it_friendly/js/functions.js' %}"></script>
+
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </body>

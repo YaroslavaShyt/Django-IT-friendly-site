@@ -5,7 +5,7 @@ from django.utils.encoding import smart_str
 from .forms import SignUpForm, AuthenticationForm, SignInForm, PaymentForm, QuestionForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from .models import Studying, StudyingDirection, FAQ, StudyingType, User, StudyingStudent, CourseTimingRange, CourseLevel, CoursePriceRange
+from .models import Studying, StudyingDirection, FAQ, StudyingType, User, StudyingStudent, CourseTimingRange, CourseLevel, CoursePriceRange, Worker
 from django.contrib import messages
 from django.core import serializers
 from datetime import datetime
@@ -27,18 +27,14 @@ def sign_in(request):
 
 def sign_up(request):
     if request.user.is_anonymous:
-        print('user is anonymous')
         if request.method == 'POST':
-            print('method is post')
             form = SignUpForm(request.POST)
             if form.is_valid():
-                print('form is valid')
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password1')
                 form.save()
                 new_user = authenticate(username=username, password=password)
                 if new_user is not None:
-                    print('user is not none')
                     login(request, new_user)
                     print('after login')
                     return redirect('save_session')
@@ -53,6 +49,7 @@ def sign_up(request):
 def sign_out(request):
     logout(request)
     return redirect('index')
+
 
 
 def index(request):
@@ -139,9 +136,13 @@ def team(request):
     question_form = QuestionForm()
     sign_in_form = SignInForm()
     sign_up_form = SignUpForm()
+    team = Worker.objects.all()
+    for i in team:
+        print(i.image)
     context = {'sign_in_form': sign_in_form,
                'sign_up_form': sign_up_form,
-               'question_form':  question_form
+               'question_form':  question_form,
+               'team': team
                }
     return render(request, 'it_friendly/team.html', context=context)
 
@@ -161,15 +162,14 @@ def save_session(request):
 def buy_course(request):
     data = {'success': False}
     if request.method == 'POST':
-        print('in form post')
         form = PaymentForm(request.POST)
         if form.is_valid():
             print('is valid')
             if request.POST.get('card_number') != '0000000000000000' \
-                    and len(request.POST.get('card_number')) == 16:
-                print('inner check')
+                    and len(request.POST.get('card_number').replace(' ', '')) == 16:
                 try:
-                    payment = StudyingStudent(id_course=request.POST.get('courseId'), username_student=request.user.username)
+                    course = Studying.objects.get(id=request.POST.get('courseId'))
+                    payment = StudyingStudent(id_course=course, username_student=request.user)
                     payment.save()
                     course_data = fetch_course_data(request.POST.get('courseId'))
                     letter_content = get_letter_template(course_data=course_data)
@@ -183,10 +183,8 @@ def buy_course(request):
                                       'Якщо ні - зверніться за допомогою у підтримку.']
                 return JsonResponse(data)
             else:
-                print('inner check else')
                 data['errors'] = ['Номер карти має містити 16 цифр.'] if len(request.POST.get('card_number')) != 16 else  ['Карта не доступна.']
         else:
-            print('invalid')
             data['errors'] = list(form.errors.values())
     return JsonResponse(data)
 
@@ -223,7 +221,6 @@ def get_user_studies(request):
 def ask_question(request):
     data = {'success': False}
     if request.method == 'POST':
-        print('in form post')
         form = QuestionForm(request.POST)
         if form.is_valid():
             try:
@@ -237,8 +234,6 @@ def ask_question(request):
                                   'Схоже проблема на нашому боці! '
                                   'Ми працюємо над її усуненням. ']
                 return JsonResponse(data)
-
         else:
-            print('invalid')
             data['errors'] = list(form.errors.values())
     return JsonResponse(data)
